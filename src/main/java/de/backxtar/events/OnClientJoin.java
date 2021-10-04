@@ -14,6 +14,7 @@ public class OnClientJoin {
     private static final Config.Colors colors = Config.getColors();
 
     public static void sendWelcome(Client client) {
+        if (Config.getConfigData().welcomeMessage == 0) return;
         api.sendPrivateMessage(client.getId(),
                 "Willkommen auf [b][color=" + colors.mainColor + "]" + api.getServerInfo().getName() + "[color=red][/b], [b]" + client.getNickname() + "[/b]!\n" +
                         "[color=red][b]Note:[/b][/color]  Commands können per [b]privater Nachricht[/b] oder per [b]Channel Nachricht[/b] ausgeführt werden!");
