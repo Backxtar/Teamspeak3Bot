@@ -5,31 +5,36 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class SqlManager {
     private static final Logger logger = LoggerFactory.getLogger(SqlManager.class);
-    private static Connection connection = null;
+    private static Connection conn = null;
 
     public static void connect() throws ClassNotFoundException, SQLException {
-        if (connection != null) disconnect();
+        if (conn != null) disconnect();
+
         String jdbcDriver = "com.mysql.cj.jdbc.Driver";
         Class.forName(jdbcDriver);
-        connection = DriverManager.getConnection("jdbc:mysql://" + Config.getConfigData().dbHost + ":3306/" + Config.getConfigData().dbName,
+        conn = DriverManager.getConnection("jdbc:mysql://" + Config.getConfigData().dbHost + ":3306/" + Config.getConfigData().dbName,
                 Config.getConfigData().dbUser, Config.getConfigData().dbPassword);
         logger.info("Database connected.");
+
+        createTables();
     }
 
 
     private static PreparedStatement prepareStatement(String sql) throws SQLException {
-        return connection.prepareStatement(sql);
+        return conn.prepareStatement(sql);
     }
 
     public static void disconnect() {
         try {
-            if (connection != null) {
-                connection.close();
-                connection = null;
+            if (conn != null) {
+                conn.close();
+                conn = null;
                 logger.info("Database disconnected.");
             }
         } catch (SQLException e) {
@@ -37,8 +42,34 @@ public class SqlManager {
         }
     }
 
-    public static Connection getConnection() {
-        return connection;
+    public static Connection getConn() {
+        return conn;
+    }
+
+    private static void createTables() {
+        String[] sqlStmts = {
+                "CREATE TABLE IF NOT EXISTS API_Keys(" +
+                        "id bigint(20) AUTO_INCREMENT," +
+                        "clientIdentity varchar(255)," +
+                        "GW2_Key varchar(255)," +
+                        "accountName varchar(255))",
+
+                "CREATE TABLE IF NOT EXISTS Timers(" +
+                        "id bigint(20) AUTO_INCREMENT," +
+                        "clientIdentity varchar(255)," +
+                        "timeStamp timestamp," +
+                        "name varchar(255))"
+        };
+        List<PreparedStatement> stmts = new ArrayList<>();
+
+        try {
+            stmts.add(prepareStatement(sqlStmts[0]));
+            stmts.add(prepareStatement(sqlStmts[1]));
+
+            for (PreparedStatement stmt : stmts) stmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void insert(String table, String[] fields, Object[] values) throws SQLException {
