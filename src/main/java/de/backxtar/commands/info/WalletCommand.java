@@ -29,8 +29,15 @@ WalletCommand implements CommandInterface {
             if (i < (wallet.size() -1)) currencies.append("\n");
         }
 
-        api.sendPrivateMessage(client.getId(),
-                "\nHier ist deine Geldbörse, [b]" + client.getNickname() + "[/b]\n\n" +
-                "[color=" + Config.getColors().mainColor + "][b]Gw2-Account:[/b][/color] " + gw2Values[1] + "\n" + currencies);
+        String toSend = "";
+        if (Config.getConfigData().lang.equalsIgnoreCase("de")) {
+            toSend = "\nHier ist deine Geldbörse, [b]" + client.getNickname() + "[/b]\n\n" +
+                    "[color=" + Config.getColors().mainColor + "][b]Gw2-Account:[/b][/color] " + gw2Values[1] + "\n" + currencies;
+        }
+        if (Config.getConfigData().lang.equalsIgnoreCase("en")) {
+            toSend = "\nHere is your wallet, [b]" + client.getNickname() + "[/b]\n\n" +
+                    "[color=" + Config.getColors().mainColor + "][b]Gw2-Account:[/b][/color] " + gw2Values[1] + "\n" + currencies;
+        }
+        api.sendPrivateMessage(client.getId(), toSend);
     }
 }

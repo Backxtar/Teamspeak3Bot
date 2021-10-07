@@ -21,10 +21,13 @@ public class DailyCheck {
     private static final TS3Api api = DerGeraet.getInstance().api;
     private static final Config.Colors colors = Config.getColors();
     private static final Provisioner_Agents provisioner_agents = new Provisioner_Agents();
+    private static final String lang = Config.getConfigData().lang;
 
     private static class Provisioner_Agents {
-        List<String> names = Arrays.asList("Skritt", "Quartier", "Aym", "Eve",
+        List<String> namesDe = Arrays.asList("Skritt", "Quartier", "Aym", "Eve",
                 "Legion", "Synergetik", "Natomi", "Rakatin", "Vorratshelfer");
+        List<String> namesEn = Arrays.asList("Skritt", "Temple", "Aym", "Eve",
+                "Legion", "Synergetics", "Natomi", "Rakatin", "Assistant");
         List<String> location = Arrays.asList("[&BAwEAAA=]", "[&BP4EAAA=]", "[&BIYDAAA=]", "[&BLsEAAA=]", "[&BKgDAAA=]",
                 "[&BLYEAAA=]", "[&BN4HAAA=]", "[&BNYHAAA=]", "[&BMwHAAA=]");
     }
@@ -49,7 +52,7 @@ public class DailyCheck {
         if (dailyStr == null || dailyTomorrowStr == null) return;
         String des = "[center][size=11][URL=client://" + api.whoAmI().getId() + "/"
                 + api.whoAmI().getUniqueIdentifier() + "]Message me![/URL][/size]" +
-                "\n\n" + dailyStr.toString() + "\n\n\n" + dailyTomorrowStr.toString();
+                "\n\n" + dailyStr + "\n\n\n" + dailyTomorrowStr;
         if (api.getChannelInfo(Config.getConfigData().dailiesChannelID).getDescription().equalsIgnoreCase(des))
             return;
         api.editChannel(Config.getConfigData().dailiesChannelID, ChannelProperty.CHANNEL_DESCRIPTION, des);
@@ -103,9 +106,17 @@ public class DailyCheck {
         List<String> dailyFractals = splitDailies(daileNames, 4);
         List<String> recFractals = splitDailies(daileNames, 5);
 
-        builder.append("[size=11][color=" + colors.mainColor + "][b]")
-                .append(!tomorrow ? "Dailies von heute:" : "Dailies von morgen:")
-                .append("[/b][/color][/size]\n\n");
+        if (lang.equalsIgnoreCase("de")) {
+            builder.append("[size=11][color=" + colors.mainColor + "][b]")
+                    .append(!tomorrow ? "Dailies von heute:" : "Dailies von morgen:")
+                    .append("[/b][/color][/size]\n\n");
+        }
+
+        if (lang.equalsIgnoreCase("en")) {
+            builder.append("[size=11][color=" + colors.mainColor + "][b]")
+                    .append(!tomorrow ? "Dailies today:" : "Dailies of tomorrow:")
+                    .append("[/b][/color][/size]\n\n");
+        }
 
         builder.append("[size=10][color=" + colors.secondColor + "][b]PvE Dailies:\n")
                 .append("[/b][/color][/size][size=9]");
@@ -131,19 +142,39 @@ public class DailyCheck {
         }
         builder.append("\n\n");
 
-        builder.append("[size=10][color=" + colors.secondColor + "][b]Fraktal Dailies:\n")
-                .append("[/b][/color][/size][size=9]");
-        for (int i = 0; i < dailyFractals.size(); i++) {
-            builder.append("[size=9]").append(dailyFractals.get(i)).append("[/size]");
-            if (i < (dailyFractals.size() - 1)) builder.append("\n");
+        if (lang.equalsIgnoreCase("de")) {
+            builder.append("[size=10][color=" + colors.secondColor + "][b]Fraktal Dailies:\n")
+                    .append("[/b][/color][/size][size=9]");
+            for (int i = 0; i < dailyFractals.size(); i++) {
+                builder.append("[size=9]").append(dailyFractals.get(i)).append("[/size]");
+                if (i < (dailyFractals.size() - 1)) builder.append("\n");
+            }
+        }
+        if (lang.equalsIgnoreCase("en")) {
+            builder.append("[size=10][color=" + colors.secondColor + "][b]Fractal Dailies:\n")
+                    .append("[/b][/color][/size][size=9]");
+            for (int i = 0; i < dailyFractals.size(); i++) {
+                builder.append("[size=9]").append(dailyFractals.get(i)).append("[/size]");
+                if (i < (dailyFractals.size() - 1)) builder.append("\n");
+            }
         }
         builder.append("\n\n");
 
-        builder.append("[size=10][color=" + colors.secondColor + "][b]Empfohlene Fraktale:\n")
-                .append("[/b][/color][/size][size=9]");
-        for (int i = 0; i < recFractals.size(); i++) {
-            builder.append("[size=9]").append(recFractals.get(i)).append("[/size]");
-            if (i < (recFractals.size() - 1)) builder.append("\n");
+        if (lang.equalsIgnoreCase("de")) {
+            builder.append("[size=10][color=" + colors.secondColor + "][b]Empfohlene Fraktale:\n")
+                    .append("[/b][/color][/size][size=9]");
+            for (int i = 0; i < recFractals.size(); i++) {
+                builder.append("[size=9]").append(recFractals.get(i)).append("[/size]");
+                if (i < (recFractals.size() - 1)) builder.append("\n");
+            }
+        }
+        if (lang.equalsIgnoreCase("en")) {
+            builder.append("[size=10][color=" + colors.secondColor + "][b]Recommended Fractals:\n")
+                    .append("[/b][/color][/size][size=9]");
+            for (int i = 0; i < recFractals.size(); i++) {
+                builder.append("[size=9]").append(recFractals.get(i)).append("[/size]");
+                if (i < (recFractals.size() - 1)) builder.append("\n");
+            }
         }
         builder.append("\n\n");
 
@@ -152,8 +183,14 @@ public class DailyCheck {
                 .append(Gw2Utils.formatDailyStrike(strikes.strike));
         builder.append("[/size]\n\n");
 
-        builder.append("[size=10][color=" + colors.secondColor + "][b]Daily Pakt-Vorratsnetz-Agenten:\n")
-                .append("[/b][/color][/size] [size=9]").append(getLocations(supply));
+        if (lang.equalsIgnoreCase("de")) {
+            builder.append("[size=10][color=" + colors.secondColor + "][b]Daily Pakt-Vorratsnetz-Agenten:\n")
+                    .append("[/b][/color][/size] [size=9]").append(getLocations(supply));
+        }
+        if (lang.equalsIgnoreCase("en")) {
+            builder.append("[size=10][color=" + colors.secondColor + "][b]Daily Pact-Supply-Agents:\n")
+                    .append("[/b][/color][/size] [size=9]").append(getLocations(supply));
+        }
         builder.append("[/size]\n\n");
 
         builder.append("[size=10][color=" + colors.secondColor + "][b]Profit:\n")
@@ -161,8 +198,14 @@ public class DailyCheck {
                 .append("[URL=https://wiki.guildwars2.com/wiki/Map_bonus_reward/profit]Map Belohnungen[/URL][/size]");
         builder.append("[/size]\n\n");
 
-        builder.append("[size=10][color=" + colors.secondColor + "][b]Fraktions Versorger:[/b][/color][/size]\n")
-                .append("[size=9]").append(getProvisioners()).append("[/size]");
+        if (lang.equalsIgnoreCase("de")) {
+            builder.append("[size=10][color=" + colors.secondColor + "][b]Fraktions Versorger:[/b][/color][/size]\n")
+                    .append("[size=9]").append(getProvisioners()).append("[/size]");
+        }
+        if (lang.equalsIgnoreCase("en")) {
+            builder.append("[size=10][color=" + colors.secondColor + "][b]Faction Provisioner:[/b][/color][/size]\n")
+                    .append("[size=9]").append(getProvisioners()).append("[/size]");
+        }
 
         return builder;
     }
@@ -170,9 +213,17 @@ public class DailyCheck {
     private static String getProvisioners() {
         StringBuilder provisioners = new StringBuilder();
 
-        for (int i = 0; i < provisioner_agents.names.size(); i++) {
-            provisioners.append(provisioner_agents.names.get(i)).append(" @").append(provisioner_agents.location.get(i));
-            if (i < (provisioner_agents.names.size() - 1)) provisioners.append(", ");
+        if (lang.equalsIgnoreCase("de")) {
+            for (int i = 0; i < provisioner_agents.namesDe.size(); i++) {
+                provisioners.append(provisioner_agents.namesDe.get(i)).append(" @").append(provisioner_agents.location.get(i));
+                if (i < (provisioner_agents.namesDe.size() - 1)) provisioners.append(", ");
+            }
+        }
+        if (lang.equalsIgnoreCase("en")) {
+            for (int i = 0; i < provisioner_agents.namesEn.size(); i++) {
+                provisioners.append(provisioner_agents.namesEn.get(i)).append(" @").append(provisioner_agents.location.get(i));
+                if (i < (provisioner_agents.namesEn.size() - 1)) provisioners.append(", ");
+            }
         }
         return provisioners.toString();
     }
