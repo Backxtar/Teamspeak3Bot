@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CallGuild {
+    private static final Config.ConfigData configData = Config.getConfigData();
 
     public static class GWCallGuild {
         public long level;
@@ -52,8 +53,8 @@ public class CallGuild {
 
         while (fails != maxFails) {
             try {
-                json = Gw2Utils.getJson("https://api.guildwars2.com/v2/guild/" + Config.getConfigData().guildID +
-                        "?access_token=" + Config.getConfigData().guildLeaderApiKey);
+                json = Gw2Utils.getJson("https://api.guildwars2.com/v2/guild/" + configData.guildID +
+                        "?access_token=" + configData.guildLeaderApiKey);
                 fails = 3;
             } catch (IOException e) {
                 if (++fails == 3) e.printStackTrace();
@@ -80,8 +81,8 @@ public class CallGuild {
 
         while (fails != maxFails) {
             try {
-                json = Gw2Utils.getJson("https://api.guildwars2.com/v2/guild/" + Config.getConfigData().guildID +
-                        "/members?access_token=" + Config.getConfigData().guildLeaderApiKey);
+                json = Gw2Utils.getJson("https://api.guildwars2.com/v2/guild/" + configData.guildID +
+                        "/members?access_token=" + configData.guildLeaderApiKey);
                 fails = 3;
             } catch (IOException e) {
                 if (++fails == 3) e.printStackTrace();
