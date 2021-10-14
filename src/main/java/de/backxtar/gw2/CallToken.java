@@ -115,7 +115,8 @@ public class CallToken {
                     api.sendPrivateMessage(client.getId(),
                             "\n" +
                                     "[color=green]✔[/color] Dein [b][color=green]Gw2-Key[/color][/b] wurde aktualisiert.\n" +
-                                    "Gw2-Account: " + account.name);
+                                    "Gw2-Account: " + account.name + "\n" +
+                                    "Token: " + token.name);
                     return;
                 }
             } else {
@@ -132,7 +133,8 @@ public class CallToken {
                     api.sendPrivateMessage(client.getId(),
                             "\n" +
                                     "[color=green]✔[/color] Dein [b][color=green]Gw2-Key[/color][/b] wurde hinterlegt.\n" +
-                                    "Gw2-Account: " + account.name);
+                                    "Gw2-Account: " + account.name + "\n" +
+                                    "Token: " + token.name);
                     return;
                 }
             }
