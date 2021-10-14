@@ -296,7 +296,7 @@ public class Gw2Utils {
 
     public static String formatRecFractals(String input) {
         String subString = input.substring(32);
-        String formatted = "";
+        String formatted = null;
 
         switch (subString) {
             case "1" :
@@ -436,14 +436,14 @@ public class Gw2Utils {
                 if (lang.equalsIgnoreCase("de")) formatted = subString + " - Sunqua-Gipfel";
                 if (lang.equalsIgnoreCase("en")) formatted = subString + " - Sunqua Peak";
                 break;
-            default :
+            default : formatted = "ERROR";
         }
         return formatted;
     }
 
     public static String formatDailyFractals(String input) {
         String subString = input.substring(13);
-        String formatted = "";
+        String formatted = null;
 
         switch (subString) {
             case "Aquatic Ruins" :
@@ -529,13 +529,13 @@ public class Gw2Utils {
                 if (lang.equalsIgnoreCase("de")) formatted = "100 - Sunqua-Gipfel";
                 if (lang.equalsIgnoreCase("en")) formatted = "100 - " + subString;
                 break;
-            default: formatted = input;
+            default: formatted = "ERROR";
         }
         return formatted;
     }
 
     public static String formatDailyStrike(String input) {
-        String formatted = "";
+        String formatted = null;
 
         switch (input) {
             case "boneskinner":
@@ -562,13 +562,13 @@ public class Gw2Utils {
                 if (lang.equalsIgnoreCase("de")) formatted = "Kalter Krieg";
                 if (lang.equalsIgnoreCase("en")) formatted = "Cold War";
                 break;
-            default:
+            default: formatted = "ERROR";
         }
         return formatted;
     }
 
     public static String formatDaily(String input) {
-        String formatted = "";
+        String formatted = null;
 
         if (lang.equalsIgnoreCase("de")) {
             switch (input) {
@@ -1073,8 +1073,7 @@ public class Gw2Utils {
                 case "Daily Windy Cave Treasure Minidungeon":
                     formatted = "Tägliches Mini-Verlies: Schatz der Zugigen Höhle";
                     break;
-                default:
-                    formatted = input;
+                default: formatted = "ERROR";
             }
         }
         if (lang.equalsIgnoreCase("en")) formatted = input;
@@ -1082,7 +1081,7 @@ public class Gw2Utils {
     }
 
     public static String formatDailiesPvpWvw(String input) {
-        String formatted = "";
+        String formatted = null;
 
         if (lang.equalsIgnoreCase("de")) {
             switch (input) {
@@ -1144,6 +1143,7 @@ public class Gw2Utils {
                 case "Daily WvW Veteran Creature Slayer":
                     formatted = "Täglicher Bezwinger von WvW-Veteran-Kreaturen";
                     break;
+                default: formatted = "ERROR";
             }
         }
         if (lang.equalsIgnoreCase("en")) formatted = input;

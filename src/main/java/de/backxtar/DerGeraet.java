@@ -92,25 +92,28 @@ public class DerGeraet {
     }
 
     private void scheduleTasks() {
-        scheduler.scheduleAtFixedRate(AfkMover::checkAfk, 1, 1, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(() -> AfkMover.checkAfk(api), 1, 1, TimeUnit.SECONDS);
         scheduler.scheduleAtFixedRate(() -> {
-            ClientDescCheck.descChange();
-            GuildSync.syncRights();
+            ClientDescCheck.descChange(api);
+            GuildSync.syncRights(api);
         },1, 60, TimeUnit.SECONDS);
         scheduler.scheduleAtFixedRate(() -> {
-            UnwantedGuest.checkGuests();
+            UnwantedGuest.checkGuests(api);
             Utils.checkInfo(api);
-            ClientHelpReminder.unlockChannel();
-            AfkMover.checkOnline();
-            Timer.checkTimers();
+            ClientHelpReminder.unlockChannel(api);
+            AfkMover.checkOnline(api);
+            Timer.checkTimers(api);
         }, 1, 60, TimeUnit.SECONDS);
         scheduler.scheduleAtFixedRate(() -> {
-            ExchangeCheck.checkExchange();
-            ArcDpsCheck.checkArcDpsVersion();
-            DailyCheck.checkDailies();
-            GuildInfo.loadGuildInfo();
+            ExchangeCheck.checkExchange(api);
+            ArcDpsCheck.checkArcDpsVersion(api);
+            DailyCheck.checkDailies(api);
+            GuildInfo.loadGuildInfo(api);
         }, 1, 300, TimeUnit.SECONDS);
-        scheduler.scheduleAtFixedRate(() -> api.getClients().forEach(CallToken::checkToken), 1, 600, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(() -> {
+            api.getClients().forEach(CallToken::checkToken);
+            ChangeServerMessage.changeMessage(api);
+        }, 1, 600, TimeUnit.SECONDS);
     }
 
     public static DerGeraet getInstance() {

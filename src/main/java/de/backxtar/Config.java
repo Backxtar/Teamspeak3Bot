@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Config {
+    private static final List<String> dayValues = Arrays.asList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun");
     private static final Logger logger = LoggerFactory.getLogger(Config.class);
     private static ConfigData configData;
     private static Colors colors;
@@ -37,6 +38,8 @@ public class Config {
         public int[] afkChannelID;
         public int infoChannelID = 0;
         public int guildChannelID = 0;
+        public String missionDay = null;
+        public String missionMessage = null;
         public String[] guildRanks;
         private int[] tempServerGroups;
         public HashMap<String, Integer> serverGroups;
@@ -117,6 +120,11 @@ public class Config {
                     break;
                 case "guildChannelID": value = (String) cfg.get(key);
                     configData.guildChannelID = Integer.parseInt(value);
+                    break;
+                case "missionDay": value = (String) cfg.get(key);
+                    if (dayValues.contains(value)) configData.missionDay = value;
+                    break;
+                case "missionMessage": configData.missionMessage = (String) cfg.get(key);
                     break;
                 case "guildRanks": value = (String) cfg.get(key);
                     values = getArray(value);

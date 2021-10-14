@@ -18,7 +18,6 @@ import java.util.concurrent.Future;
 
 public class DailyCheck {
     private static final ExecutorService executor = Executors.newFixedThreadPool(2);
-    private static final TS3Api api = DerGeraet.getInstance().api;
     private static final Config.Colors colors = Config.getColors();
     private static final Provisioner_Agents provisioner_agents = new Provisioner_Agents();
     private static final String lang = Config.getConfigData().lang;
@@ -32,7 +31,7 @@ public class DailyCheck {
                 "[&BLYEAAA=]", "[&BN4HAAA=]", "[&BNYHAAA=]", "[&BMwHAAA=]");
     }
 
-    public static void checkDailies() {
+    public static void checkDailies(TS3Api api) {
         if (Config.getConfigData().dailiesChannelID == 0) return;
         CallDaily.GWCallDaily daily = CallDaily.getDailies(false);
         CallDaily.GWCallDaily dailyTomorrow = CallDaily.getDailies(true);

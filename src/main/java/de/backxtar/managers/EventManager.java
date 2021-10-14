@@ -72,11 +72,10 @@ public class EventManager {
                 try {
                     if (!api.isClientOnline(clientID) || api.getClientInfo(clientID).isServerQueryClient()) return;
                     Client client = api.getClientInfo(clientID);
-                    ClientHelpReminder.doSupport(clientMovedEvent, client);
-                    ClientHelpReminder.lockChannel(clientMovedEvent, client);
-                    TempChannel.createTempChannel(clientMovedEvent, client);
-                } catch (Exception ignored) {
-                }
+                    ClientHelpReminder.doSupport(clientMovedEvent, client, api);
+                    ClientHelpReminder.lockChannel(clientMovedEvent, client, api);
+                    TempChannel.createTempChannel(clientMovedEvent, client, api);
+                } catch (Exception ignored) {}
             }
 
             @Override

@@ -1,7 +1,6 @@
 package de.backxtar.systems;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
-import de.backxtar.DerGeraet;
 import de.backxtar.managers.SqlManager;
 
 import java.sql.ResultSet;
@@ -10,10 +9,8 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 public class Timer {
-    private static final TS3Api api = DerGeraet.getInstance().api;
 
     public static String calcTimestamp(String input) throws NumberFormatException{
         long millisToAdd = 0;
@@ -49,7 +46,7 @@ public class Timer {
         return values;
     }
 
-    public static void checkTimers() {
+    public static void checkTimers(TS3Api api) {
         long curTime = System.currentTimeMillis();
 
         try {

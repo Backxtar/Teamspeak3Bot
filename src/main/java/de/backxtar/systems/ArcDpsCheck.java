@@ -9,9 +9,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 public class ArcDpsCheck {
-    private static TS3Api api = DerGeraet.getInstance().api;
 
-    public static void checkArcDpsVersion() {
+    public static void checkArcDpsVersion(TS3Api api) {
         if (Config.getConfigData().arcDpsChannelID == 0) return;
 
         String webpage = "https://www.deltaconnected.com/arcdps/x64/";

@@ -3,7 +3,6 @@ package de.backxtar.systems;
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.api.ChannelProperty;
 import de.backxtar.Config;
-import de.backxtar.DerGeraet;
 import de.backxtar.gw2.CallGuild;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -13,9 +12,8 @@ import java.util.concurrent.Future;
 
 public class GuildInfo {
     private static final ExecutorService executor = Executors.newFixedThreadPool(2);
-    private static final TS3Api api = DerGeraet.getInstance().api;
 
-    public static void loadGuildInfo() {
+    public static void loadGuildInfo(TS3Api api) {
         if (Config.getConfigData().guildChannelID == 0) return;
         Future<CallGuild.GWCallGuild> guildAsync = executor.submit(CallGuild::getOwnGuild);
         Future<List<CallGuild.GWCallGuildMembers>> memberAsync = executor.submit(CallGuild::getMembers);

@@ -12,9 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TempChannel {
-    private static final TS3Api api = DerGeraet.getInstance().api;
 
-    public static void createTempChannel(ClientMovedEvent e, Client client) {
+    public static void createTempChannel(ClientMovedEvent e, Client client, TS3Api api) {
         if (Config.getConfigData().tempChannelList == null ||
             !Config.getConfigData().tempChannelList.contains(e.getTargetChannelId()))
             return;

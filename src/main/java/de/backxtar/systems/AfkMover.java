@@ -2,12 +2,10 @@ package de.backxtar.systems;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import de.backxtar.Config;
-import de.backxtar.DerGeraet;
 import java.util.HashMap;
 
 public class AfkMover {
     private static final HashMap<String, MoveData> dataHashMap = new HashMap<>();
-    private static final TS3Api api = DerGeraet.getInstance().api;
     private static final String lang = Config.getConfigData().lang;
 
     private static class MoveData {
@@ -16,7 +14,7 @@ public class AfkMover {
         public int channelID;
     }
 
-    public static void checkAfk() {
+    public static void checkAfk(TS3Api api) {
         int[] afkChannelIDs = Config.getConfigData().afkChannelID;
         if (afkChannelIDs.length == 0 || afkChannelIDs[0] == 0) return;
         api.getClients().parallelStream().forEach(client -> {
@@ -79,7 +77,7 @@ public class AfkMover {
         });
     }
 
-    public static void checkOnline() {
+    public static void checkOnline(TS3Api api) {
         dataHashMap.forEach((key, moveData) -> {
             if (!api.isClientOnline(key) || api.getClientByUId(key).getChannelId() != Config.getConfigData().afkChannelID[0])
                 dataHashMap.remove(key);

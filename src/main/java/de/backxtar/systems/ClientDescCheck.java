@@ -10,9 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ClientDescCheck {
-    private static TS3Api api = DerGeraet.getInstance().api;
 
-    public static void descChange() {
+    public static void descChange(TS3Api api) {
 
         try {
             ResultSet resultSet = SqlManager.selectAll("API_Keys");

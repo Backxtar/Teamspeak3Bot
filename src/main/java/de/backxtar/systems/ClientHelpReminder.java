@@ -8,7 +8,6 @@ import com.github.theholywaffle.teamspeak3.api.wrapper.ChannelInfo;
 import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
 import com.github.theholywaffle.teamspeak3.api.wrapper.ServerGroupClient;
 import de.backxtar.Config;
-import de.backxtar.DerGeraet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,10 +15,9 @@ import java.util.List;
 import java.util.Map;
 
 public class ClientHelpReminder {
-    private static final TS3Api api = DerGeraet.getInstance().api;
     private static final String lang = Config.getConfigData().lang;
 
-    public static void doSupport(ClientMovedEvent e, Client client) {
+    public static void doSupport(ClientMovedEvent e, Client client, TS3Api api) {
         if (!Config.getConfigData().supportChannels.contains(e.getTargetChannelId())) return;
 
         for (int serverGroup : client.getServerGroups()) {
@@ -69,7 +67,7 @@ public class ClientHelpReminder {
         });
     }
 
-    public static void lockChannel(ClientMovedEvent e, Client client) {
+    public static void lockChannel(ClientMovedEvent e, Client client, TS3Api api) {
         if (!Config.getConfigData().supportChannels.contains(e.getTargetChannelId())) return;
         boolean isSupporter = false;
         for (int serverGroup : client.getServerGroups()) {
@@ -88,7 +86,7 @@ public class ClientHelpReminder {
         }
     }
 
-    public static void unlockChannel() {
+    public static void unlockChannel(TS3Api api) {
         Config.getConfigData().supportChannels.parallelStream().forEach(channelID -> {
             ChannelInfo channelInfo = api.getChannelInfo(channelID);
             Channel channel = api.getChannelByNameExact(channelInfo.getName(), true);

@@ -12,9 +12,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class GuildSync {
-    private static final TS3Api api = DerGeraet.getInstance().api;
 
-    public static void syncRights() {
+    public static void syncRights(TS3Api api) {
         if (Config.getConfigData().serverGroups == null
                 || Config.getConfigData().guildRanks[0].equalsIgnoreCase("0"))
             return;

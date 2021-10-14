@@ -14,9 +14,8 @@ import java.util.concurrent.Future;
 
 public class ExchangeCheck {
     private static final ExecutorService executor = Executors.newFixedThreadPool(2);
-    private static final TS3Api api = DerGeraet.getInstance().api;
 
-    public static void checkExchange() {
+    public static void checkExchange(TS3Api api) {
         if (Config.getConfigData().tradingPostChannelID == 0) return;
         String urlTP = "https://wiki.guildwars2.com/images/thumb/d/df/Black-Lion-Logo.png/300px-Black-Lion-Logo.png";
         String urlGem = "https://i.epvpimg.com/BLondab.png";

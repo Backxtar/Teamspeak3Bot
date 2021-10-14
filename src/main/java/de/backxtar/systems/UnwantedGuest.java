@@ -2,13 +2,11 @@ package de.backxtar.systems;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import de.backxtar.Config;
-import de.backxtar.DerGeraet;
 
 public class UnwantedGuest {
-    private static final TS3Api api = DerGeraet.getInstance().api;
     private static final String lang = Config.getConfigData().lang;
 
-    public static void checkGuests() {
+    public static void checkGuests(TS3Api api) {
         if (!Config.getConfigData().unwantedGuests) return;
         int guest = api.getServerInfo().getDefaultServerGroup();
         int defaultChannelID = api.whoAmI().getChannelId();

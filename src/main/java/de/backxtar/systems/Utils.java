@@ -8,14 +8,43 @@ import de.backxtar.DerGeraet;
 
 import java.text.SimpleDateFormat;
 import java.time.*;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 
 public class Utils {
     private static final String lang = Config.getConfigData().lang;
+    private static final String setDay = Config.getConfigData().missionDay;
     private static ZoneId zone = ZoneId.systemDefault();
 
     private static Date dateValue(Instant instant, ZoneId zoneId) {
         return Date.from(instant.atZone(zoneId).toInstant());
+    }
+
+    public static LocalDate localDate() {
+        return LocalDate.now(zone);
+    }
+
+    public static LocalDate getNextDate() {
+        DayOfWeek day;
+
+        switch (setDay) {
+            case "Mon" : day = DayOfWeek.MONDAY;
+                break;
+            case "Tue" : day = DayOfWeek.TUESDAY;
+                break;
+            case "Wed" : day = DayOfWeek.WEDNESDAY;
+                break;
+            case "Thu" : day = DayOfWeek.THURSDAY;
+                break;
+            case "Fri" : day = DayOfWeek.FRIDAY;
+                break;
+            case "Sat" : day = DayOfWeek.SATURDAY;
+                break;
+            case "Sun" : day = DayOfWeek.SUNDAY;
+                break;
+            default : day = null;
+        }
+        return day != null ? localDate().with(TemporalAdjusters.nextOrSame(day)) : null;
     }
 
     public static String getDate() {
