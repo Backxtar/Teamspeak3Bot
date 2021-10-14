@@ -44,301 +44,238 @@ public class Gw2Utils {
         //https://api.guildwars2.com/v2/currencies?ids=all
         String currency = "";
 
-        if (lang.equalsIgnoreCase("de")) {
-            switch (id) {
+        switch (id) {
                 case 1:
                     long[] coins = getCoins(amount);
-                    currency = "╰ [color=" + colors.mainColor + "][b]Coins:[/b][/color] " + (coins[2] > 0 ? "[b]" + coins[2] + "[/b] Gold, " : "") +
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Coins:[/b][/color] " +
+                            (coins[2] > 0 ? "[b]" + coins[2] + "[/b] Gold, " : "") +
                             (coins[1] > 0 ? "[b]" + coins[1] + "[/b] Silber, " : "") +
                             (coins[0] > 0 ? "[b]" + coins[0] + "[/b] Kupfer" : "");
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Coins:[/b][/color] " +
+                            (coins[2] > 0 ? "[b]" + coins[2] + "[/b] Gold, " : "") +
+                            (coins[1] > 0 ? "[b]" + coins[1] + "[/b] Silver, " : "") +
+                            (coins[0] > 0 ? "[b]" + coins[0] + "[/b] Copper" : "");
                     break;
                 case 2:
                     currency = "╰ [color=" + colors.mainColor + "][b]Karma:[/b][/color] " + amount;
                     break;
                 case 3:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Lorbeeren:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Lorbeeren:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Laurels:[/b][/color] " + amount;
                     break;
                 case 4:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Edelsteine:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Edelsteine:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Gems:[/b][/color] " + amount;
                     break;
                 case 5:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Ascalonische Tränen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Ascalonische Tränen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Ascalonian Tears:[/b][/color] " + amount;
                     break;
                 case 6:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Scherben des Zhaitan:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Scherben des Zhaitan:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Shards of Zhaitan:[/b][/color] " + amount;
                     break;
                 case 7:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Fraktal-Relikte:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Fraktal-Relikte:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Fractals Relics:[/b][/color] " + amount;
                     break;
                 case 9:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Beetletuns Siegel:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Beetletuns Siegel:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Seals of Beetletuns:[/b][/color] " + amount;
                     break;
                 case 10:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Manifeste des Maulwetariats:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Manifeste des Maulwetariats:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Manifestos of the Moletariate:[/b][/color] " + amount;
                     break;
                 case 11:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Tödliche Blüten:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Tödliche Blüten:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Deadly Blooms:[/b][/color] " + amount;
                     break;
                 case 12:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Symbole Kodas:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Symbole Kodas:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Symbols of Koda:[/b][/color] " + amount;
                     break;
                 case 13:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Flammen-Legion-Charr-Schnitzereien:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Flammen-Legion-Charr-Schnitzereien:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Flame Legion Charr Carvings:[/b][/color] " + amount;
                     break;
                 case 14:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Wissenskristalle:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Wissenskristalle:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Knowledge Crystals:[/b][/color] " + amount;
                     break;
                 case 15:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Ehrenabzeichen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Ehrenabzeichen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Badges of Honor:[/b][/color] " + amount;
                     break;
                 case 16:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Gilden-Belobigungen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Gilden-Belobigungen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Guild Commendations:[/b][/color] " + amount;
                     break;
                 case 18:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Transmutation-Ladungen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Transmutation-Ladungen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Transmutation Charges:[/b][/color] " + amount;
                     break;
                 case 19:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Luftschiff-Teile:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Luftschiff-Teile:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Airship Parts:[/b][/color] " + amount;
                     break;
                 case 20:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Ley-Linien-Kristalle:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Ley-Linien-Kristalle:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Ley Line Crystals:[/b][/color] " + amount;
                     break;
                 case 22:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Aurilliumklumpen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Aurilliumklumpen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Lumps of Aurillium:[/b][/color] " + amount;
                     break;
                 case 23:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Geister-Scherben:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Geister-Scherben:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Spirit Shards:[/b][/color] " + amount;
                     break;
                 case 24:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Makelloses Fraktal-Relikte:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Makelloses Fraktal-Relikte:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Pristine Fractal Relics:[/b][/color] " + amount;
                     break;
                 case 25:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Geoden:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Geoden:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Geodes:[/b][/color] " + amount;
                     break;
                 case 26:
-                    currency = "╰ [color=" + colors.mainColor + "][b]WvW-Gefecht-Tickets:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]WvW-Gefecht-Tickets:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]WvW Skirmish Claim Ticket:[/b][/color] " + amount;
                     break;
                 case 27:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Banditen-Wappen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Banditen-Wappen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Bandit Crests:[/b][/color] " + amount;
                     break;
                 case 28:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Magnetitscherben:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Magnetitscherben:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Magnetite Shards:[/b][/color] " + amount;
                     break;
                 case 29:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Versorger-Marken:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Versorger-Marken:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Provisioner Tokens:[/b][/color] " + amount;
                     break;
                 case 30:
-                    currency = "╰ [color=" + colors.mainColor + "][b]PvP-Liga-Tickets:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]PvP-Liga-Tickets:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]PvP League Tickets:[/b][/color] " + amount;
                     break;
                 case 31:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Beweise der Heldentaten:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Beweise der Heldentaten:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Proof of Heroics:[/b][/color] " + amount;
                     break;
                 case 32:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Aufgestiegene Scherben des Ruhms:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Aufgestiegene Scherben des Ruhms:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Ascended Shard of Glory:[/b][/color] " + amount;
                     break;
                 case 33:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Entfesselte Magie:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Entfesselte Magie:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Unbound Magic:[/b][/color] " + amount;
                     break;
                 case 34:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Handelsverträge:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Handelsverträge:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Trade Contracts:[/b][/color] " + amount;
                     break;
                 case 35:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Elegie-Mosaike:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Elegie-Mosaike:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Elegy Mosaics:[/b][/color] " + amount;
                     break;
                 case 36:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Zeugnisse von Heldentaten:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Zeugnisse von Heldentaten:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Testimony of Heroics:[/b][/color] " + amount;
                     break;
                 case 37:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Erhabene-Schlüssel:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Erhabene-Schlüssel:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Exalted Keys:[/b][/color] " + amount;
                     break;
                 case 38:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Macheten:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Macheten:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Machetes:[/b][/color] " + amount;
                     break;
                 case 39:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Gaets-Kristalle:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Gaets-Kristalle:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Gaeting Crystals:[/b][/color] " + amount;
                     break;
                 case 40:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Banditen-Dietriche:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Banditen-Dietriche:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Bandit Skeleton Keys:[/b][/color] " + amount;
                     break;
                 case 41:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Pakt-Brechstangen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Pakt-Brechstangen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Pact Crowbars:[/b][/color] " + amount;
                     break;
                 case 42:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Phiolen Chak-Säure:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Phiolen Chak-Säure:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Vials of Chak Acid:[/b][/color] " + amount;
                     break;
                 case 43:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Zephyriten-Dietriche:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Zephyriten-Dietriche:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Zephyrite Lockpicks:[/b][/color] " + amount;
                     break;
                 case 44:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Schlüssel des Händlers:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Schlüssel des Händlers:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Trader's Keys:[/b][/color] " + amount;
                     break;
                 case 45:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Flüchtige Magie:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Flüchtige Magie:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Volatile Magic:[/b][/color] " + amount;
                     break;
                 case 46:
-                    currency = "╰ [color=" + colors.mainColor + "][b]PvP-Turnier-Gutscheine:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]PvP-Turnier-Gutscheine:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]PvP Turnament Tickets:[/b][/color] " + amount;
                     break;
                 case 47:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Renn-Medaillen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Renn-Medaillen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Racing Medallions:[/b][/color] " + amount;
                     break;
                 case 49:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Nebelgeborenere Schlüssel:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Nebelgeborenere Schlüssel:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Mistborn Keys:[/b][/color] " + amount;
                     break;
                 case 50:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Festmarken:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Festmarken:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Festival Tokens:[/b][/color] " + amount;
                     break;
                 case 51:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Lager-Schlüssel:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Lager-Schlüssel:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Cache Keys:[/b][/color] " + amount;
                     break;
                 case 52:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Rote Propheten-Scherben:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Rote Propheten-Scherben:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Red Prophet Shards:[/b][/color] " + amount;
                     break;
                 case 53:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Grüne Propheten-Scherben:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Grüne Propheten-Scherben:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Green Prophet Shards:[/b][/color] " + amount;
                     break;
                 case 54:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Blauer Propheten-Kristalle:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Blauer Propheten-Kristalle:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Blue Prophet Crystals:[/b][/color] " + amount;
                     break;
                 case 55:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Grüner Propheten-Kristalle:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Grüner Propheten-Kristalle:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Green Prophet Crystals:[/b][/color] " + amount;
                     break;
                 case 56:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Roter Propheten-Kristalle:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Roter Propheten-Kristalle:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Red Prophet Crystals:[/b][/color] " + amount;
                     break;
                 case 57:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Blaue Propheten-Scherben:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Blaue Propheten-Scherben:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Blue Prophet Shards:[/b][/color] " + amount;
                     break;
                 case 58:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Kriegs-Vorräte:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Kriegs-Vorräte:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]War Supplies:[/b][/color] " + amount;
                     break;
                 case 59:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Instabile Fraktal-Essenzen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Instabile Fraktal-Essenzen:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Unstable Fractal Essence:[/b][/color] " + amount;
                     break;
                 case 60:
-                    currency = "╰ [color=" + colors.mainColor + "][b]Tyrianische Verteidigungssiegel:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("de")) currency = "╰ [color=" + colors.mainColor + "][b]Tyrianische Verteidigungssiegel:[/b][/color] " + amount;
+                    if (lang.equalsIgnoreCase("en")) currency = "╰ [color=" + colors.mainColor + "][b]Tyrian Defense Seals:[/b][/color] " + amount;
                     break;
             }
-        }
-
-        if (lang.equalsIgnoreCase("en")) {
-            switch (id) {
-                case 1 : long[] coins = getCoins(amount);
-                    currency = "╰ [color=" + colors.mainColor + "][b]Coins:[/b][/color] " + (coins[2] > 0 ? "[b]" + coins[2] + "[/b] Gold, " : "") +
-                            (coins[1] > 0 ? "[b]" + coins[1] + "[/b] Silver, " : "") +
-                            (coins[0] > 0 ? "[b]" + coins[0] + "[/b] Copper" : "");
-                    break;
-                case 2 : currency = "╰ [color=" + colors.mainColor + "][b]Karma:[/b][/color] " + amount;
-                    break;
-                case 3 : currency = "╰ [color=" + colors.mainColor + "][b]Laurels:[/b][/color] " + amount;
-                    break;
-                case 4 : currency = "╰ [color=" + colors.mainColor + "][b]Gems:[/b][/color] " + amount;
-                    break;
-                case 5 : currency = "╰ [color=" + colors.mainColor + "][b]Ascalonian Tears:[/b][/color] " + amount;
-                    break;
-                case 6 : currency = "╰ [color=" + colors.mainColor + "][b]Shards of Zhaitan:[/b][/color] " + amount;
-                    break;
-                case 7 : currency = "╰ [color=" + colors.mainColor + "][b]Fractals Relics:[/b][/color] " + amount;
-                    break;
-                case 9 : currency = "╰ [color=" + colors.mainColor + "][b]Seals of Beetletuns:[/b][/color] " + amount;
-                    break;
-                case 10 : currency = "╰ [color=" + colors.mainColor + "][b]Manifestos of the Moletariate:[/b][/color] " + amount;
-                    break;
-                case 11 : currency = "╰ [color=" + colors.mainColor + "][b]Deadly Blooms:[/b][/color] " + amount;
-                    break;
-                case 12 : currency = "╰ [color=" + colors.mainColor + "][b]Symbols of Koda:[/b][/color] " + amount;
-                    break;
-                case 13 : currency = "╰ [color=" + colors.mainColor + "][b]Flame Legion Charr Carvings:[/b][/color] " + amount;
-                    break;
-                case 14 : currency = "╰ [color=" + colors.mainColor + "][b]Knowledge Crystals:[/b][/color] " + amount;
-                    break;
-                case 15 : currency = "╰ [color=" + colors.mainColor + "][b]Badges of Honor:[/b][/color] " + amount;
-                    break;
-                case 16 : currency = "╰ [color=" + colors.mainColor + "][b]Guild Commendations:[/b][/color] " + amount;
-                    break;
-                case 18 : currency = "╰ [color=" + colors.mainColor + "][b]Transmutation Charges:[/b][/color] " + amount;
-                    break;
-                case 19 : currency = "╰ [color=" + colors.mainColor + "][b]Airship Parts:[/b][/color] " + amount;
-                    break;
-                case 20 : currency = "╰ [color=" + colors.mainColor + "][b]Ley Line Crystals:[/b][/color] " + amount;
-                    break;
-                case 22 : currency = "╰ [color=" + colors.mainColor + "][b]Lumps of Aurillium:[/b][/color] " + amount;
-                    break;
-                case 23 : currency = "╰ [color=" + colors.mainColor + "][b]Spirit Shards:[/b][/color] " + amount;
-                    break;
-                case 24 : currency = "╰ [color=" + colors.mainColor + "][b]Pristine Fractal Relics:[/b][/color] " + amount;
-                    break;
-                case 25 : currency = "╰ [color=" + colors.mainColor + "][b]Geodes:[/b][/color] " + amount;
-                    break;
-                case 26 : currency = "╰ [color=" + colors.mainColor + "][b]WvW Skirmish Claim Ticket:[/b][/color] " + amount;
-                    break;
-                case 27 : currency = "╰ [color=" + colors.mainColor + "][b]Bandit Crests:[/b][/color] " + amount;
-                    break;
-                case 28 : currency = "╰ [color=" + colors.mainColor + "][b]Magnetite Shards:[/b][/color] " + amount;
-                    break;
-                case 29 : currency = "╰ [color=" + colors.mainColor + "][b]Provisioner Tokens:[/b][/color] " + amount;
-                    break;
-                case 30 : currency = "╰ [color=" + colors.mainColor + "][b]PvP League Tickets:[/b][/color] " + amount;
-                    break;
-                case 31 : currency = "╰ [color=" + colors.mainColor + "][b]Proof of Heroics:[/b][/color] " + amount;
-                    break;
-                case 32 : currency = "╰ [color=" + colors.mainColor + "][b]Ascended Shard of Glory:[/b][/color] " + amount;
-                    break;
-                case 33 : currency = "╰ [color=" + colors.mainColor + "][b]Unbound Magic:[/b][/color] " + amount;
-                    break;
-                case 34 : currency = "╰ [color=" + colors.mainColor + "][b]Trade Contracts:[/b][/color] " + amount;
-                    break;
-                case 35 : currency = "╰ [color=" + colors.mainColor + "][b]Elegy Mosaics:[/b][/color] " + amount;
-                    break;
-                case 36 : currency = "╰ [color=" + colors.mainColor + "][b]Testimony of Heroics:[/b][/color] " + amount;
-                    break;
-                case 37 : currency = "╰ [color=" + colors.mainColor + "][b]Exalted Keys:[/b][/color] " + amount;
-                    break;
-                case 38 : currency = "╰ [color=" + colors.mainColor + "][b]Machetes:[/b][/color] " + amount;
-                    break;
-                case 39 : currency = "╰ [color=" + colors.mainColor + "][b]Gaeting Crystals:[/b][/color] " + amount;
-                    break;
-                case 40 : currency = "╰ [color=" + colors.mainColor + "][b]Bandit Skeleton Keys:[/b][/color] " + amount;
-                    break;
-                case 41 : currency = "╰ [color=" + colors.mainColor + "][b]Pact Crowbars:[/b][/color] " + amount;
-                    break;
-                case 42 : currency = "╰ [color=" + colors.mainColor + "][b]Vials of Chak Acid:[/b][/color] " + amount;
-                    break;
-                case 43 : currency = "╰ [color=" + colors.mainColor + "][b]Zephyrite Lockpicks:[/b][/color] " + amount;
-                    break;
-                case 44 : currency = "╰ [color=" + colors.mainColor + "][b]Trader's Keys:[/b][/color] " + amount;
-                    break;
-                case 45 : currency = "╰ [color=" + colors.mainColor + "][b]Volatile Magic:[/b][/color] " + amount;
-                    break;
-                case 46 : currency = "╰ [color=" + colors.mainColor + "][b]PvP Turnament Tickets:[/b][/color] " + amount;
-                    break;
-                case 47 : currency = "╰ [color=" + colors.mainColor + "][b]Racing Medallions:[/b][/color] " + amount;
-                    break;
-                case 49 : currency = "╰ [color=" + colors.mainColor + "][b]Mistborn Keys:[/b][/color] " + amount;
-                    break;
-                case 50 : currency = "╰ [color=" + colors.mainColor + "][b]Festival Tokens:[/b][/color] " + amount;
-                    break;
-                case 51 : currency = "╰ [color=" + colors.mainColor + "][b]Cache Keys:[/b][/color] " + amount;
-                    break;
-                case 52 : currency = "╰ [color=" + colors.mainColor + "][b]Red Prophet Shards:[/b][/color] " + amount;
-                    break;
-                case 53 : currency = "╰ [color=" + colors.mainColor + "][b]Green Prophet Shards:[/b][/color] " + amount;
-                    break;
-                case 54 : currency = "╰ [color=" + colors.mainColor + "][b]Blue Prophet Crystals:[/b][/color] " + amount;
-                    break;
-                case 55 : currency = "╰ [color=" + colors.mainColor + "][b]Green Prophet Crystals:[/b][/color] " + amount;
-                    break;
-                case 56 : currency = "╰ [color=" + colors.mainColor + "][b]Red Prophet Crystals:[/b][/color] " + amount;
-                    break;
-                case 57 : currency = "╰ [color=" + colors.mainColor + "][b]Blue Prophet Shards:[/b][/color] " + amount;
-                    break;
-                case 58 : currency = "╰ [color=" + colors.mainColor + "][b]War Supplies:[/b][/color] " + amount;
-                    break;
-                case 59 : currency = "╰ [color=" + colors.mainColor + "][b]Unstable Fractal Essence:[/b][/color] " + amount;
-                    break;
-                case 60 : currency = "╰ [color=" + colors.mainColor + "][b]Tyrian Defense Seals:[/b][/color] " + amount;
-                    break;
-            }
-        }
         return currency;
     }
 
