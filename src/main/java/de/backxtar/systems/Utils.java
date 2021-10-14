@@ -11,20 +11,27 @@ import java.time.*;
 import java.util.Date;
 
 public class Utils {
+    private static final String lang = Config.getConfigData().lang;
+    private static ZoneId zone = ZoneId.systemDefault();
+
+    private static Date dateValue(Instant instant, ZoneId zoneId) {
+        return Date.from(instant.atZone(zoneId).toInstant());
+    }
 
     public static String getDate() {
-        Date date = new Date();
-        SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy");
-        return sdfDate.format(date);
+        Instant instant = Instant.now();
+        SimpleDateFormat sdfDate = null;
+        if (lang.equalsIgnoreCase("de")) sdfDate = new SimpleDateFormat("dd.MM.yyyy");
+        if (lang.equalsIgnoreCase("en")) sdfDate = new SimpleDateFormat("MM-dd-yyyy");
+        return sdfDate.format(dateValue(instant, zone));
     }
 
     public static String getDate(String parseFormat) {
         Instant instant = Instant.parse(parseFormat);
-        ZoneId zone = ZoneId.systemDefault();
-        ZonedDateTime zdt = instant.atZone(zone);
-        Date date = Date.from(zdt.toInstant());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        return sdf.format(date);
+        SimpleDateFormat sdfDate = null;
+        if (lang.equalsIgnoreCase("de")) sdfDate = new SimpleDateFormat("dd.MM.yyyy");
+        if (lang.equalsIgnoreCase("en")) sdfDate = new SimpleDateFormat("MM-dd-yyyy");
+        return sdfDate.format(dateValue(instant, zone));
     }
 
     public static void checkInfo(TS3Api api) {

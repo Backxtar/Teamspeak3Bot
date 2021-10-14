@@ -15,11 +15,6 @@ import java.util.Random;
 public class Timer {
     private static final TS3Api api = DerGeraet.getInstance().api;
 
-    private static final String[] values = {"q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g",
-            "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P",
-            "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M", "1", "2", "3", "4", "5",
-            "6", "7", "8", "9", "0"};
-
     public static String calcTimestamp(String input) throws NumberFormatException{
         long millisToAdd = 0;
 
@@ -80,12 +75,5 @@ public class Timer {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public static String generateCode() {
-        Random random = new Random();
-        StringBuilder strBuilder = new StringBuilder();
-        for (int i = 0; i < 4; i++) strBuilder.append(values[random.nextInt(values.length)]);
-        return strBuilder.toString();
     }
 }

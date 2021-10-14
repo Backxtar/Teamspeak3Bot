@@ -3,6 +3,7 @@ package de.backxtar.gw2;
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
 import com.google.gson.Gson;
+import de.backxtar.Config;
 import de.backxtar.managers.SqlManager;
 import de.backxtar.DerGeraet;
 
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 
 public class CallToken {
     private static final TS3Api api = DerGeraet.getInstance().api;
+    private static final String lang = Config.getConfigData().lang;
 
     public static class GWCallToken {
         public String id;
@@ -52,22 +54,30 @@ public class CallToken {
                 token = getGWCallToken(resultSet.getString("GW2_Key"));
 
                 if (token == null || token.permissions.length < 10) {
+                    String mess = "";
+                    String sub = "";
+
+                    if (lang.equalsIgnoreCase("de")) {
+                        sub = "Gw2_Key ungültig!";
+                        mess = "\n" +
+                                "[color=red]✘[/color] Dein [b][color=red]Gw2-Key[/color][/b] ist nicht mehr gültig oder " +
+                                "hat nicht alle Berechtigungen.\n" +
+                                "Du kannst hier einen neuen Gw2-Key erstellen:\n" +
+                                "https://account.arena.net/applications";
+                    }
+                    if (lang.equalsIgnoreCase("en")) {
+                        sub = "Gw2_Key not valid!";
+                        mess = "\n" +
+                                "[color=red]✘[/color] Youe [b][color=red]Gw2-Key[/color][/b] is not valid anymore or " +
+                                "doesn't have all permissions.\n" +
+                                "You can create a Gw2-Key here:\n" +
+                                "https://account.arena.net/applications";
+                    }
                     if (api.isClientOnline(client.getUniqueIdentifier())) {
-                        api.sendPrivateMessage(client.getId(),
-                                "\n" +
-                                        "[color=red]✘[/color] Dein [b][color=red]Gw2-Key[/color][/b] ist nicht mehr gültig oder " +
-                                        "hat nicht alle Berechtigungen.\n" +
-                                        "Du kannst hier einen neuen Gw2-Key erstellen:\n" +
-                                        "https://account.arena.net/applications");
+                        api.sendPrivateMessage(client.getId(), mess);
                         return;
                     }
-                    api.sendOfflineMessage(client.getUniqueIdentifier(),
-                            "\n" +
-                                    "Gw2_Key ungültig!",
-                            "[color=red]✘[/color] Dein [b][color=red]Gw2-Key[/color][/b] ist nicht mehr gültig oder " +
-                                    "hat nicht alle Berechtigungen.\n" +
-                                    "Du kannst hier einen neuen Gw2-Key erstellen:\n" +
-                                    "https://account.arena.net/applications");
+                    api.sendOfflineMessage(client.getUniqueIdentifier(), sub, mess);
                 }
             }
         } catch (SQLException e) {
@@ -75,6 +85,7 @@ public class CallToken {
         }
     }
 
+    //TODO Translate
     public static void checkToken(Client client, String apiKey) {
         GWCallToken token;
         CallAccount.GWCallAccount account;

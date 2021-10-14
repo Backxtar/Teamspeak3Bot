@@ -6,6 +6,7 @@ import de.backxtar.DerGeraet;
 
 public class UnwantedGuest {
     private static final TS3Api api = DerGeraet.getInstance().api;
+    private static final String lang = Config.getConfigData().lang;
 
     public static void checkGuests() {
         if (!Config.getConfigData().unwantedGuests) return;
@@ -25,7 +26,11 @@ public class UnwantedGuest {
 
             if (isGuest && api.getClientInfo(client.getId()).getTimeConnected() >= 300000 &&
                     client.getChannelId() == defaultChannelID) {
-                api.kickClientFromServer("Du warst als Gast 5 Minuten in der Lobby inaktiv!", client.getId());
+                String kickMessage = "";
+
+                if (lang.equalsIgnoreCase("de")) kickMessage = "Du warst als Gast 5 Minuten in der Lobby inaktiv!";
+                if (lang.equalsIgnoreCase("en")) kickMessage = "You were 5 minutes inactive in the Lobby!";
+                api.kickClientFromServer(kickMessage, client.getId());
             }
         });
     }

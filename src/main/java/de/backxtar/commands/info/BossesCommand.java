@@ -45,6 +45,7 @@ public class BossesCommand implements CommandInterface {
             } else raidEvent.add(i, "[color=red]✘[/color] " + eventTranslations[i]);
         }
 
+        //TODO Translate
         conditions[0] = (raidBosses.contains(bosses[0]) && raidBosses.contains(events[0])
                 && raidBosses.contains(bosses[1]) && raidBosses.contains(bosses[2])) ?
                 "[color=green]✔[/color] Geistertal:" :
