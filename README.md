@@ -8,7 +8,8 @@
 <img align="right" src="https://mlpfyvpfyq69.i.optimole.com/cZ9PPCo-D60oTdJD/w:auto/h:auto/q:auto/https://gameserververgleich.info/wp-content/uploads/TeamSpeak-Server-mieten.png" height="200" width="200">
 
 # Teamspeak 3 Bot
-This bot is still under developement.\
+This bot is still under developement.
+Mutlilang support is comming! DE and EN!\
 [Check Virus Total Scan!](https://www.virustotal.com/gui/file/5c94d45ba57f32ffc090f8ac73810ef365935f7956c18cc6420c58eb28692577/detection)
 
 ## Features
