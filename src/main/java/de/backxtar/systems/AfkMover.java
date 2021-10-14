@@ -8,6 +8,7 @@ import java.util.HashMap;
 public class AfkMover {
     private static final HashMap<String, MoveData> dataHashMap = new HashMap<>();
     private static final TS3Api api = DerGeraet.getInstance().api;
+    private static final String lang = Config.getConfigData().lang;
 
     private static class MoveData {
         public long timestamp;
@@ -35,19 +36,34 @@ public class AfkMover {
                 moveData.timestamp = System.currentTimeMillis() - client.getIdleTime();
                 dataHashMap.put(client.getUniqueIdentifier(), moveData);
 
-                api.sendPrivateMessage(client.getId(),
-                        "Du wurdest in [color=" + Config.getColors().mainColor + "][b]" +
-                        api.getChannelInfo(afkChannelIDs[0]).getName() + "[/b][/color] verschoben!");
+                if (lang.equalsIgnoreCase("de")) {
+                    api.sendPrivateMessage(client.getId(),
+                            "Du wurdest in [color=" + Config.getColors().mainColor + "][b]" +
+                                    api.getChannelInfo(afkChannelIDs[0]).getName() + "[/b][/color] verschoben!");
+                }
+                if (lang.equalsIgnoreCase("en")) {
+                    api.sendPrivateMessage(client.getId(),
+                            "You are moved to: [color=" + Config.getColors().mainColor + "][b]" +
+                                    api.getChannelInfo(afkChannelIDs[0]).getName() + "[/b][/color]!");
+                }
                 api.moveClient(client.getId(), afkChannelIDs[0]);
             } else {
                 if (!dataHashMap.containsKey(client.getUniqueIdentifier())) return;
                 long[] duration = getTime(System.currentTimeMillis() - dataHashMap.get(client.getUniqueIdentifier()).timestamp);
                 String time = (duration[2] > 0 ? duration[2] + "h " : "") +
                         (duration[1] > 0 ? duration[1] + "min " : "") + String.format("%02d", duration[0]) + " sec.";
-                api.sendPrivateMessage(client.getId(), "Deine AFK-Zeit betrug: " +
-                        "[color=" + Config.getColors().mainColor + "][b]" + time + "[/b][/color]. " +
-                        "Dein voheriger Channel: [color=" + Config.getColors().mainColor + "][b]" +
-                        dataHashMap.get(client.getUniqueIdentifier()).channelName + "[/b][/color].");
+                if (lang.equalsIgnoreCase("de")) {
+                    api.sendPrivateMessage(client.getId(), "Deine AFK-Zeit betrug: " +
+                            "[color=" + Config.getColors().mainColor + "][b]" + time + "[/b][/color]. " +
+                            "Dein voheriger Channel: [color=" + Config.getColors().mainColor + "][b]" +
+                            dataHashMap.get(client.getUniqueIdentifier()).channelName + "[/b][/color].");
+                }
+                if (lang.equalsIgnoreCase("en")) {
+                    api.sendPrivateMessage(client.getId(), "Your AFK-Time: " +
+                            "[color=" + Config.getColors().mainColor + "][b]" + time + "[/b][/color]. " +
+                            "Your prev. Channel: [color=" + Config.getColors().mainColor + "][b]" +
+                            dataHashMap.get(client.getUniqueIdentifier()).channelName + "[/b][/color].");
+                }
 
                 boolean exists = api.getChannels().parallelStream().anyMatch(channel ->
                         channel.getId() == dataHashMap.get(client.getUniqueIdentifier()).channelID);

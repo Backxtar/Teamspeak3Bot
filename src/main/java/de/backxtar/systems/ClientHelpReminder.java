@@ -17,6 +17,7 @@ import java.util.Map;
 
 public class ClientHelpReminder {
     private static final TS3Api api = DerGeraet.getInstance().api;
+    private static final String lang = Config.getConfigData().lang;
 
     public static void doSupport(ClientMovedEvent e, Client client) {
         if (!Config.getConfigData().supportChannels.contains(e.getTargetChannelId())) return;
@@ -39,16 +40,33 @@ public class ClientHelpReminder {
                 }
             }
         }
-        String sendHelp = clients.size() > 0 ? "Momentan " + (clients.size() > 1 ? "sind" : "ist") +
-                        " [color=" + Config.getColors().mainColor + "][b]" + clients.size() + " Supporter[/b][/color] online! " +
-                        "Es wird sich sofort jemand um Dich kümmern!" :
-                        "Momentan ist leider [color=" + Config.getColors().mainColor + "][b]kein Supporter[/b][/color] online. " +
-                        "Bitte komme zu einem späteren Zeitpunkt wieder!";
+        String sendHelp = "";
+
+        if (lang.equalsIgnoreCase("de")) {
+            sendHelp = clients.size() > 0 ? "Momentan " + (clients.size() > 1 ? "sind" : "ist") +
+                    " [color=" + Config.getColors().mainColor + "][b]" + clients.size() + " Supporter[/b][/color] online! " +
+                    "Es wird sich sofort jemand um Dich kümmern!" :
+                    "Momentan ist leider [color=" + Config.getColors().mainColor + "][b]kein Supporter[/b][/color] online. " +
+                            "Bitte komme zu einem späteren Zeitpunkt wieder!";
+        }
+        if (lang.equalsIgnoreCase("en")) {
+            sendHelp = clients.size() > 0 ? "At the moment there " + (clients.size() > 1 ? "are" : "is") +
+                    " [color=" + Config.getColors().mainColor + "][b]" + clients.size() + " " + (clients.size() > 1 ? "Supporters" : "Supporter") +
+                    "[/b][/color] online! Please wait!" :
+                    "At the moment ist there are [color=" + Config.getColors().mainColor + "][b]no Supporters[/b][/color] online. " +
+                            "Bitte komme zu einem späteren Zeitpunkt wieder!";
+        }
         api.sendPrivateMessage(client.getId(), sendHelp);
 
-        clients.parallelStream().forEach(supporter -> api.sendPrivateMessage(supporter.getId(),
-                "[color=" + Config.getColors().mainColor + "][b]" + client.getNickname() + "[/b][/color] " +
-                "wartet in [color=" + Config.getColors().mainColor + "][b]" + channelInfo.getName() + "[/b][/color] auf Hilfe!"));
+        clients.parallelStream().forEach(supporter -> {
+            String send = "";
+
+            if (lang.equalsIgnoreCase("de")) send = "[color=" + Config.getColors().mainColor + "][b]" + client.getNickname() + "[/b][/color] " +
+                        "wartet in [color=" + Config.getColors().mainColor + "][b]" + channelInfo.getName() + "[/b][/color] auf Hilfe!";
+            if (lang.equalsIgnoreCase("en")) send = "[color=" + Config.getColors().mainColor + "][b]" + client.getNickname() + "[/b][/color] " +
+                        "is waiting in [color=" + Config.getColors().mainColor + "][b]" + channelInfo.getName() + "[/b][/color] for help!";
+            api.sendPrivateMessage(supporter.getId(), send);
+        });
     }
 
     public static void lockChannel(ClientMovedEvent e, Client client) {
