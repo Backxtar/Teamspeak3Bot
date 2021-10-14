@@ -18,6 +18,7 @@ Mutlilang support is comming! DE and EN!\
 * GW2 Wallet
 * GW2 Dailies
 * GW2 Guild-Information
+* GW2 GuildMission Notifications
 * GW2 Support System
 * GW2 Weekly Raid Boss-Kills
 * GW2 ArcDPS Version Check

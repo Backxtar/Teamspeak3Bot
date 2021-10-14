@@ -15,6 +15,7 @@ public class ChangeServerMessage {
 
     public static void changeMessage(TS3Api api) {
         try {
+            if (Config.getConfigData().missionDay == null) return;
             String curMes = api.getServerInfo().getWelcomeMessage(), mes, date = "";
 
             LocalDate now = Utils.localDate();
