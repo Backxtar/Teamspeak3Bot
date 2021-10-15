@@ -3,7 +3,6 @@ package de.backxtar.systems;
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
 import de.backxtar.Config;
-import de.backxtar.DerGeraet;
 import de.backxtar.gw2.CallGuild;
 import de.backxtar.managers.SqlManager;
 
@@ -28,28 +27,39 @@ public class GuildSync {
                 String identity = resultSet.getString("clientIdentity");
                 String accountName = resultSet.getString("accountName");
 
-                if (members.parallelStream().noneMatch(member -> member.name.equalsIgnoreCase(accountName)) ||
-                        !api.isClientOnline(identity)) continue;
+                if (!api.isClientOnline(identity)) continue;
                 Client client = api.getClientByUId(identity);
 
-                members.parallelStream().forEach(member -> {
-                    if (member.name.equalsIgnoreCase(accountName) && !member.rank.equalsIgnoreCase("invited")) {
-                        String rank = member.rank;
+                if (members.parallelStream().noneMatch(member -> member.name.equalsIgnoreCase(accountName)) ||
+                    members.parallelStream().anyMatch(member -> member.name.equalsIgnoreCase(accountName) &&
+                            member.rank.equalsIgnoreCase("invited"))) {
+                    int[] groups = client.getServerGroups();
 
-                        if (Config.getConfigData().serverGroups.containsKey(rank)) {
-                            int serverGroupId = Config.getConfigData().serverGroups.get(rank);
-                            int[] groups = client.getServerGroups();
-                            boolean hasGroup = false;
-
-                            for (int group : groups) {
-                                if (group != serverGroupId && !Config.getConfigData().ignoreGroups.contains(group))
-                                    api.removeClientFromServerGroup(group, client.getDatabaseId());
-                                if (group == serverGroupId) hasGroup = true;
-                            }
-                            if (!hasGroup) api.addClientToServerGroup(serverGroupId, client.getDatabaseId());
-                        }
+                    for (int group : groups) {
+                        if (Config.getConfigData().serverGroups.containsValue(group))
+                            api.removeClientFromServerGroup(group, client.getDatabaseId());
                     }
-                });
+                    continue;
+                }
+                CallGuild.GWCallGuildMembers user = null;
+
+                for (CallGuild.GWCallGuildMembers member : members) {
+                    if (member.name.equalsIgnoreCase(accountName) && !member.rank.equalsIgnoreCase("invited")) {
+                        user = member;
+                        break;
+                    }
+                }
+                if (user == null || !Config.getConfigData().serverGroups.containsKey(user.rank)) continue;
+                int serverGroup = Config.getConfigData().serverGroups.get(user.rank);
+                int[] groups = client.getServerGroups();
+                boolean hasGroup = false;
+
+                for (int group : groups) {
+                    if (group != serverGroup && Config.getConfigData().serverGroups.containsValue(group))
+                        api.removeClientFromServerGroup(group, client.getDatabaseId());
+                    if (group == serverGroup) hasGroup = true;
+                }
+                if (!hasGroup) api.addClientToServerGroup(serverGroup, client.getDatabaseId());
             }
         } catch (SQLException e) {
             e.printStackTrace();

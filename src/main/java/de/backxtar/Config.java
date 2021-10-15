@@ -43,7 +43,7 @@ public class Config {
         public String[] guildRanks;
         private int[] tempServerGroups;
         public HashMap<String, Integer> serverGroups;
-        public List<Integer> ignoreGroups;
+        //public List<Integer> ignoreGroups;
         public List<Integer> supportChannels;
         public List<Integer> supportGroups;
         public List<Integer> tempChannelList;
@@ -141,13 +141,13 @@ public class Config {
                     for (int i = 0; i < values.length; i++)
                         configData.tempServerGroups[i] = Integer.parseInt(values[i]);
                     break;
-                case "ignoreGroups" : value = (String) cfg.get(key);
+                /*case "ignoreGroups" : value = (String) cfg.get(key);
                     values = getArray(value);
                     if (!value.isEmpty()) {
                         configData.ignoreGroups = new ArrayList<>();
                         for (String str : values)
                             configData.ignoreGroups.add(Integer.parseInt(str));
-                    } break;
+                    } break;*/
                 case "supportChannels" : value = (String) cfg.get(key);
                     values = getArray(value);
                     if (!value.isEmpty()) {
