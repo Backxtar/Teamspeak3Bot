@@ -14,13 +14,13 @@ import java.util.Map;
 public class ChangeServerMessage {
 
     private static class SpecialEvents {
-        private List<String> de = Arrays.asList(
+        private final List<String> de = Arrays.asList(
                 "\uD83C\uDF83 Schauriges Halloween! \uD83C\uDF83",
                 "\uD83C\uDF84 Fröhliche Weihnachten! \uD83C\uDF84",
                 "\uD83C\uDF85 Ho-Ho-Ho! Der Nikolaus kommt! \uD83C\uDF85",
                 "\uD83C\uDF7E Frohes neues Jahr! \uD83C\uDF7E",
                 "\uD83C\uDF8A GUILD WARS hat Geburtstag! \uD83C\uDF8A");
-        private List<String> en = Arrays.asList(
+        private final List<String> en = Arrays.asList(
                 "\uD83C\uDF83 Scary Halloween! \uD83C\uDF83",
                 "\uD83C\uDF84 Mary Christmas! \uD83C\uDF84",
                 "\uD83C\uDF85 Ho-Ho-Ho! Santa is comming! \uD83C\uDF85",
