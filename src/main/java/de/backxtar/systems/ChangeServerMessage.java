@@ -19,13 +19,15 @@ public class ChangeServerMessage {
                 "\uD83C\uDF84 Fröhliche Weihnachten! \uD83C\uDF84",
                 "\uD83C\uDF85 Ho-Ho-Ho! Der Nikolaus kommt! \uD83C\uDF85",
                 "\uD83C\uDF7E Frohes neues Jahr! \uD83C\uDF7E",
-                "\uD83C\uDF8A GUILD WARS hat Geburtstag! \uD83C\uDF8A");
+                "\uD83C\uDF8A GUILD WARS hat Geburtstag! \uD83C\uDF8A",
+                "\uD83D\uDC30 Fröhliche Ostern! \uD83D\uDC30");
         private final List<String> en = Arrays.asList(
                 "\uD83C\uDF83 Scary Halloween! \uD83C\uDF83",
                 "\uD83C\uDF84 Mary Christmas! \uD83C\uDF84",
                 "\uD83C\uDF85 Ho-Ho-Ho! Santa is comming! \uD83C\uDF85",
                 "\uD83C\uDF7E Happy new year! \uD83C\uDF7E",
-                "\uD83C\uDF8A GUILD WARS has birthday! \uD83C\uDF8A");
+                "\uD83C\uDF8A GUILD WARS has birthday! \uD83C\uDF8A",
+                "\uD83D\uDC30 Happy Easter! \uD83D\uDC30");
     }
 
     private static final SpecialEvents specialEvents = new SpecialEvents();
@@ -46,6 +48,7 @@ public class ChangeServerMessage {
             LocalDate santa = LocalDate.of(now.getYear(), 12, 6);
             LocalDate newYear = LocalDate.of(now.getYear(), 1, 1);
             LocalDate birthday = LocalDate.of(now.getYear(), 8, 25);
+            LocalDate easter = Utils.getEasterSunday();
 
             if (Config.getConfigData().lang.equalsIgnoreCase("de"))
                 date = nextEvent.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
@@ -66,6 +69,7 @@ public class ChangeServerMessage {
             if (now.isEqual(santa)) mes += "\n" + eventLang.get(2);
             if (now.isEqual(newYear)) mes += "\n" + eventLang.get(3);
             if (now.isEqual(birthday)) mes += "\n" + eventLang.get(4);
+            if (now.isEqual(easter)) mes += "\n" + eventLang.get(5);
             if (curMes.equalsIgnoreCase(mes) || eventLang == null) return;
 
             final Map<VirtualServerProperty, String> properties = new HashMap<>();

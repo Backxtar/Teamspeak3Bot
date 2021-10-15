@@ -14,10 +14,10 @@ import java.util.Date;
 public class Utils {
     private static final String lang = Config.getConfigData().lang;
     private static final String setDay = Config.getConfigData().missionDay;
-    private static ZoneId zone = ZoneId.systemDefault();
+    private static final ZoneId zone = ZoneId.systemDefault();
 
-    private static Date dateValue(Instant instant, ZoneId zoneId) {
-        return Date.from(instant.atZone(zoneId).toInstant());
+    private static Date dateValue(Instant instant) {
+        return Date.from(instant.atZone(zone).toInstant());
     }
 
     public static LocalDate localDate() {
@@ -47,12 +47,31 @@ public class Utils {
         return day != null ? localDate().with(TemporalAdjusters.nextOrSame(day)) : null;
     }
 
+    public static LocalDate getEasterSunday() {
+        final int y = Year.now().getValue();
+        final int a = y % 19;
+        final int b = y / 100;
+        final int c = y % 100;
+        final int d = b / 4;
+        final int e = b % 4;
+        final int f = (b + 8) / 25;
+        final int g = (b - f + 1) / 3;
+        final int h = (19 * a + b - d - g + 15) % 30;
+        final int i = c / 4;
+        final int k = c % 4;
+        final int m = (32 + 2 * e + 2 * i - h - k) % 7;
+        final int n = (a + 11 * h + 22 * m) / 451;
+        final int month = (h + m - 7 * n + 114) / 31;
+        final int day = (((h + m - (7 * n) + 114) % 31) + 1);
+        return LocalDate.of(y, month, day);
+    }
+
     public static String getDate() {
         Instant instant = Instant.now();
         SimpleDateFormat sdfDate = null;
         if (lang.equalsIgnoreCase("de")) sdfDate = new SimpleDateFormat("dd.MM.yyyy");
         if (lang.equalsIgnoreCase("en")) sdfDate = new SimpleDateFormat("MM-dd-yyyy");
-        return sdfDate.format(dateValue(instant, zone));
+        return sdfDate.format(dateValue(instant));
     }
 
     public static String getDate(String parseFormat) {
@@ -60,7 +79,7 @@ public class Utils {
         SimpleDateFormat sdfDate = null;
         if (lang.equalsIgnoreCase("de")) sdfDate = new SimpleDateFormat("dd.MM.yyyy");
         if (lang.equalsIgnoreCase("en")) sdfDate = new SimpleDateFormat("MM-dd-yyyy");
-        return sdfDate.format(dateValue(instant, zone));
+        return sdfDate.format(dateValue(instant));
     }
 
     public static void checkInfo(TS3Api api) {
