@@ -77,9 +77,10 @@ public class ChangeServerMessage {
                     now.isEqual(easter);
 
             final Map<VirtualServerProperty, String> properties = new HashMap<>();
-            if (isEvent && value <= 2) properties.put(VirtualServerProperty.VIRTUALSERVER_HOSTMESSAGE, mes + "\n" + event);
-            else if (isEvent && value > 2) properties.put(VirtualServerProperty.VIRTUALSERVER_HOSTMESSAGE, event);
+            if (isEvent && value > 2) properties.put(VirtualServerProperty.VIRTUALSERVER_HOSTMESSAGE, event);
+            else if (isEvent && value <= 2) properties.put(VirtualServerProperty.VIRTUALSERVER_HOSTMESSAGE, mes + "\n" + event);
             else properties.put(VirtualServerProperty.VIRTUALSERVER_HOSTMESSAGE, mes);
+
             if (value <= 2 || isEvent) properties.put(VirtualServerProperty.VIRTUALSERVER_HOSTMESSAGE_MODE, "2");
             else properties.put(VirtualServerProperty.VIRTUALSERVER_HOSTMESSAGE_MODE, "0");
 
