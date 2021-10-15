@@ -85,7 +85,6 @@ public class CallToken {
         }
     }
 
-    //TODO Translate
     public static void checkToken(Client client, String apiKey) {
         GWCallToken token;
         CallAccount.GWCallAccount account;
@@ -97,9 +96,13 @@ public class CallToken {
 
             if (resultSet.next()) {
                 if (resultSet.getString("GW2_Key").equalsIgnoreCase(apiKey)) {
-                    api.sendPrivateMessage(client.getId(),
-                            "\n" +
-                                    "[color=red]✘[/color] Dieser [b][color=red]Gw2-Key[/color][/b] ist bereits hinterlegt.");
+                    String mes = "";
+
+                    if (lang.equalsIgnoreCase("de"))
+                        mes = "\n" + "[color=red]✘[/color] Dieser [b][color=red]Gw2-Key[/color][/b] ist bereits hinterlegt.";
+                    if (lang.equalsIgnoreCase("en"))
+                        mes = "\n" + "[color=red]✘[/color] This [b][color=red]Gw2-Key[/color][/b] already exists.";
+                    api.sendPrivateMessage(client.getId(), mes);
                     return;
                 }
                 token = getGWCallToken(apiKey);
@@ -111,12 +114,17 @@ public class CallToken {
                     String[] fieldsUpdate = {"GW2_Key", "accountName"};
                     Object[] valuesUpdate = {apiKey, account.name, client.getUniqueIdentifier()};
                     SqlManager.update(fieldsUpdate, "API_Keys", "clientIdentity = ?", valuesUpdate);
+                    String mes = "";
 
-                    api.sendPrivateMessage(client.getId(),
-                            "\n" +
-                                    "[color=green]✔[/color] Dein [b][color=green]Gw2-Key[/color][/b] wurde aktualisiert.\n" +
-                                    "Gw2-Account: " + account.name + "\n" +
-                                    "Token: " + token.name);
+                    if (lang.equalsIgnoreCase("de"))
+                        mes = "\n" + "[color=green]✔[/color] Dein [b][color=green]Gw2-Key[/color][/b] wurde aktualisiert.\n" +
+                                "Gw2-Account: " + account.name + "\n" +
+                                "Token: " + token.name;
+                    if (lang.equalsIgnoreCase("en"))
+                        mes = "\n" + "[color=green]✔[/color] Your [b][color=green]Gw2-Key[/color][/b] was updated.\n" +
+                                "Gw2-Account: " + account.name + "\n" +
+                                "Token: " + token.name;
+                    api.sendPrivateMessage(client.getId(), mes);
                     return;
                 }
             } else {
@@ -129,21 +137,34 @@ public class CallToken {
                     String[] fieldsInsert = {"clientIdentity", "GW2_Key", "accountName"};
                     Object[] valuesInsert = {client.getUniqueIdentifier(), apiKey, account.name};
                     SqlManager.insert("API_Keys", fieldsInsert, valuesInsert);
+                    String mes = "";
 
-                    api.sendPrivateMessage(client.getId(),
-                            "\n" +
-                                    "[color=green]✔[/color] Dein [b][color=green]Gw2-Key[/color][/b] wurde hinterlegt.\n" +
-                                    "Gw2-Account: " + account.name + "\n" +
-                                    "Token: " + token.name);
+                    if (lang.equalsIgnoreCase("de"))
+                        mes = "\n" + "[color=green]✔[/color] Dein [b][color=green]Gw2-Key[/color][/b] wurde hinterlegt.\n" +
+                                "Gw2-Account: " + account.name + "\n" +
+                                "Token: " + token.name;
+                    if (lang.equalsIgnoreCase("en"))
+                        mes = "\n" + "[color=green]✔[/color] Your [b][color=green]Gw2-Key[/color][/b] was saved.\n" +
+                                "Gw2-Account: " + account.name + "\n" +
+                                "Token: " + token.name;
+
+                    api.sendPrivateMessage(client.getId(), mes);
                     return;
                 }
             }
-            api.sendPrivateMessage(client.getId(),
-                    "\n" +
-                            "[color=red]✘[/color] Dein [b][color=red]Gw2-Key[/color][/b] ist nicht gültig oder " +
-                            "hat nicht alle Berechtigungen.\n" +
-                            "Du kannst hier einen neuen Gw2-Key erstellen:\n" +
-                            "https://account.arena.net/applications");
+            String mes = "";
+
+            if (lang.equalsIgnoreCase("de"))
+                mes = "\n" + "[color=red]✘[/color] Dein [b][color=red]Gw2-Key[/color][/b] ist nicht gültig oder " +
+                        "hat nicht alle Berechtigungen.\n" +
+                        "Du kannst hier einen neuen Gw2-Key erstellen:\n" +
+                        "https://account.arena.net/applications";
+            if (lang.equalsIgnoreCase("en"))
+                mes = "\n" + "[color=red]✘[/color] Your [b][color=red]Gw2-Key[/color][/b] is not valid or do not " +
+                        "have all permissions.\n" +
+                        "You can create a new Gw2-Key here:\n" +
+                        "https://account.arena.net/applications";
+            api.sendPrivateMessage(client.getId(), mes);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -166,18 +187,26 @@ public class CallToken {
 
                 if (token != null && token.permissions.length == 10) return gw2Values;
                 else {
-                    api.sendPrivateMessage(client.getId(),
-                            "\n" +
-                                    "[color=red]✘[/color] Dein [b][color=red]Gw2-Key[/color][/b] ist ungültig oder hat nicht alle Berechtigungen.");
+                    String mes = "";
+
+                    if(lang.equalsIgnoreCase("de"))
+                        mes = "\n" + "[color=red]✘[/color] Dein [b][color=red]Gw2-Key[/color][/b] ist ungültig oder hat nicht alle Berechtigungen.";
+                    if (lang.equalsIgnoreCase("en"))
+                        mes = "\n" + "[color=red]✘[/color] Your [b][color=red]Gw2-Key[/color][/b] is not valid or do not have all permissions.";
+                    api.sendPrivateMessage(client.getId(), mes);
                     return null;
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        api.sendPrivateMessage(client.getId(),
-                "\n" +
-                "[color=red]✘[/color] Du hast noch keinen [b][color=red]Gw2-Key[/color][/b] hinterlegt.");
+        String mes = "";
+
+        if (lang.equalsIgnoreCase("de"))
+            mes = "\n" + "[color=red]✘[/color] Du hast noch keinen [b][color=red]Gw2-Key[/color][/b] hinterlegt.";
+        if (lang.equalsIgnoreCase("en"))
+            mes = "\n" + "[color=red]✘[/color] You didnt store a [b][color=red]Gw2-Key[/color][/b] yet.";
+        api.sendPrivateMessage(client.getId(), mes);
         return null;
     }
 }

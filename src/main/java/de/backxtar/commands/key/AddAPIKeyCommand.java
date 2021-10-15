@@ -3,10 +3,12 @@ package de.backxtar.commands.key;
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.api.event.TextMessageEvent;
 import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
+import de.backxtar.Config;
 import de.backxtar.managers.CommandInterface;
 import de.backxtar.gw2.CallToken;
 
 public class AddAPIKeyCommand implements CommandInterface {
+    private final Config.Colors colors = Config.getColors();
 
     @Override
     public void run(String[] cmdValues, TS3Api api, TextMessageEvent event, Client client) {
@@ -24,8 +26,9 @@ public class AddAPIKeyCommand implements CommandInterface {
             builder.append(token.permissions[i]);
             if (i < (token.permissions.length - 1)) builder.append(", ");
         }
-        api.sendPrivateMessage(client.getId(), "\nGw2-Account: " + gw2Values[1] +
-                "\nToken: " + token.name +
-                "\nPermissions: " + builder);
+        api.sendPrivateMessage(client.getId(),
+                "\n[color=" + colors.mainColor + "][b]Gw2-Account:[/b][/color] " + gw2Values[1] +
+                        "\n[color=" + colors.mainColor + "][b]Token:[/b][/color] " + token.name +
+                        "\n[color=" + colors.mainColor + "][b]Permissions:[/b][/color] " + builder);
     }
 }
