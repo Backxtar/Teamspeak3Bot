@@ -36,7 +36,7 @@ public class ChangeServerMessage {
     public static void changeMessage(TS3Api api) {
         try {
             if (Config.getConfigData().missionDay == null) return;
-            String curMes = api.getServerInfo().getWelcomeMessage(), mes, date = "";
+            String curMes = api.getServerInfo().getWelcomeMessage(), mes, event = "", date = "";
 
             LocalDate now = Utils.localDate();
             LocalDate nextEvent = Utils.getNextDate();
@@ -62,19 +62,25 @@ public class ChangeServerMessage {
             List<String> eventLang = null;
             if (lang.equalsIgnoreCase("de")) eventLang = specialEvents.de;
             if (lang.equalsIgnoreCase("en")) eventLang = specialEvents.en;
+            if (eventLang == null) return;
 
             // Add Event-Message
-            if (now.isEqual(halloween)) mes += "\n" + eventLang.get(0);
-            if (now.isEqual(christmas)) mes += "\n" + eventLang.get(1);
-            if (now.isEqual(santa)) mes += "\n" + eventLang.get(2);
-            if (now.isEqual(newYear)) mes += "\n" + eventLang.get(3);
-            if (now.isEqual(birthday)) mes += "\n" + eventLang.get(4);
-            if (now.isEqual(easter)) mes += "\n" + eventLang.get(5);
-            if (curMes.equalsIgnoreCase(mes) || eventLang == null) return;
+            if (now.isEqual(halloween)) event = eventLang.get(0);
+            if (now.isEqual(christmas)) event = eventLang.get(1);
+            if (now.isEqual(santa)) event = eventLang.get(2);
+            if (now.isEqual(newYear)) event = eventLang.get(3);
+            if (now.isEqual(birthday)) event = eventLang.get(4);
+            if (now.isEqual(easter)) event = eventLang.get(5);
+            if (curMes.equalsIgnoreCase(mes)) return;
+            boolean isEvent = now.isEqual(halloween) | now.isEqual(christmas) |
+                    now.isEqual(santa) | now.isEqual(newYear) | now.isEqual(birthday) |
+                    now.isEqual(easter);
 
             final Map<VirtualServerProperty, String> properties = new HashMap<>();
-            properties.put(VirtualServerProperty.VIRTUALSERVER_HOSTMESSAGE, mes);
-            if (value < 3) properties.put(VirtualServerProperty.VIRTUALSERVER_HOSTMESSAGE_MODE, "2");
+            if (isEvent && value <= 2) properties.put(VirtualServerProperty.VIRTUALSERVER_HOSTMESSAGE, mes + "\n" + event);
+            else if (isEvent && value > 2) properties.put(VirtualServerProperty.VIRTUALSERVER_HOSTMESSAGE, event);
+            else properties.put(VirtualServerProperty.VIRTUALSERVER_HOSTMESSAGE, mes);
+            if (value <= 2 || isEvent) properties.put(VirtualServerProperty.VIRTUALSERVER_HOSTMESSAGE_MODE, "2");
             else properties.put(VirtualServerProperty.VIRTUALSERVER_HOSTMESSAGE_MODE, "0");
 
             api.editServer(properties);
