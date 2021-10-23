@@ -3,7 +3,6 @@ package de.backxtar.systems;
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.api.ChannelProperty;
 import com.github.theholywaffle.teamspeak3.api.event.ClientMovedEvent;
-import com.github.theholywaffle.teamspeak3.api.wrapper.Channel;
 import com.github.theholywaffle.teamspeak3.api.wrapper.ChannelInfo;
 import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
 import com.github.theholywaffle.teamspeak3.api.wrapper.ServerGroupClient;
@@ -87,18 +86,17 @@ public class ClientHelpReminder {
     }
 
     public static void unlockChannel(TS3Api api) {
-        Config.getConfigData().supportChannels.parallelStream().forEach(channelID -> {
-            ChannelInfo channelInfo = api.getChannelInfo(channelID);
-            Channel channel = api.getChannelByNameExact(channelInfo.getName(), true);
+        api.getChannels().parallelStream().forEach(channel -> {
+            if (Config.getConfigData().supportChannels.stream().anyMatch(channelID -> channelID == channel.getId())) {
+                ChannelInfo channelInfo = api.getChannelInfo(channel.getId());
 
-            if (channel.getTotalClients() <= 0 && channelInfo.getName().contains("(taken)")) {
-                String channelName = channelInfo.getName().replace(" (taken)", "");
-
-                final Map<ChannelProperty, String> properties = new HashMap<>();
-                properties.put(ChannelProperty.CHANNEL_NAME, channelName);
-                properties.put(ChannelProperty.CHANNEL_PASSWORD, "");
-
-                api.editChannel(channelID, properties);
+                if (channelInfo.getName().contains("(taken)") && channel.getTotalClients() == 0) {
+                    String channelName = channelInfo.getName().replace(" (taken)", "");
+                    final Map<ChannelProperty, String> properties = new HashMap<>();
+                    properties.put(ChannelProperty.CHANNEL_NAME, channelName);
+                    properties.put(ChannelProperty.CHANNEL_PASSWORD, "");
+                    api.editChannel(channel.getId(), properties);
+                }
             }
         });
     }

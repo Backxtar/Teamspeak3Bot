@@ -96,24 +96,24 @@ public class DerGeraet {
         scheduler.scheduleAtFixedRate(() -> {
             ClientDescCheck.descChange(api);
             GuildSync.syncRights(api);
-        },1, 60, TimeUnit.SECONDS);
+        },2, 60, TimeUnit.SECONDS);
         scheduler.scheduleAtFixedRate(() -> {
             UnwantedGuest.checkGuests(api);
             Utils.checkInfo(api);
             ClientHelpReminder.unlockChannel(api);
             AfkMover.checkOnline(api);
             Timer.checkTimers(api);
-        }, 1, 60, TimeUnit.SECONDS);
+        }, 3, 60, TimeUnit.SECONDS);
         scheduler.scheduleAtFixedRate(() -> {
             ExchangeCheck.checkExchange(api);
             ArcDpsCheck.checkArcDpsVersion(api);
             DailyCheck.checkDailies(api);
             GuildInfo.loadGuildInfo(api);
-        }, 1, 300, TimeUnit.SECONDS);
+        }, 4, 300, TimeUnit.SECONDS);
         scheduler.scheduleAtFixedRate(() -> {
             api.getClients().forEach(CallToken::checkToken);
             ChangeServerMessage.changeMessage(api);
-        }, 1, 600, TimeUnit.SECONDS);
+        }, 5, 600, TimeUnit.SECONDS);
     }
 
     public static DerGeraet getInstance() {
