@@ -56,7 +56,11 @@ public class ChangeServerMessage {
                 date = nextEvent.format(DateTimeFormatter.ofPattern("MM-dd-yyyy"));
             if (date.isEmpty()) return;
 
-            mes = Config.getConfigData().missionMessage.replaceAll("%date", date);
+            if (now.isEqual(nextEvent) && lang.equalsIgnoreCase("de"))
+                mes = Config.getConfigData().missionMessage.replaceAll("%date", "HEUTE");
+            else if (now.isEqual(nextEvent) && lang.equalsIgnoreCase("en"))
+                mes = Config.getConfigData().missionMessage.replaceAll("%date", "TODAY");
+            else mes = Config.getConfigData().missionMessage.replaceAll("%date", date);
 
             // Set language
             List<String> eventLang = null;
