@@ -1,4 +1,4 @@
-package de.backxtar.systems;
+package de.backxtar;
 
 import de.backxtar.Config;
 import de.backxtar.DataType;
