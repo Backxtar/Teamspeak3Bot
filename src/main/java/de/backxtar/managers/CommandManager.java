@@ -17,7 +17,7 @@ import de.backxtar.commands.timer.StartTimerCommand;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CommandManager {
-    public ConcurrentHashMap<String, CommandInterface> commands;
+    private final ConcurrentHashMap<String, CommandInterface> commands;
 
     public CommandManager() {
         this.commands = new ConcurrentHashMap<>();
