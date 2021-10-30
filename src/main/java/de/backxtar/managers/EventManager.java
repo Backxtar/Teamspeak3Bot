@@ -9,6 +9,7 @@ import de.backxtar.events.OnClientJoin;
 import de.backxtar.systems.ClientHelpReminder;
 import de.backxtar.systems.TempChannel;
 import de.backxtar.systems.Utils;
+import de.backxtar.systems.WelcomeChanged;
 
 public class EventManager {
     public static void loadEvents() {
@@ -52,7 +53,7 @@ public class EventManager {
 
             @Override
             public void onServerEdit(ServerEditedEvent serverEditedEvent) {
-
+                WelcomeChanged.notifyServer(serverEditedEvent, api);
             }
 
             @Override

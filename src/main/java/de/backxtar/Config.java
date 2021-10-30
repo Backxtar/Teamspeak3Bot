@@ -33,6 +33,7 @@ public class Config {
         public String dbPassword;
         public String prefix = "!";
         public String lang = "de";
+        public int defaultChannelID = 1;
         public int welcomeMessage = 0;
         public int tradingPostChannelID = 0;
         public int[] afkChannelID;
@@ -97,6 +98,9 @@ public class Config {
 
                 // Settings
                 case "prefix": configData.prefix = (String) cfg.get(key);
+                    break;
+                case "defaultChannelID": value = (String) cfg.get(key);
+                    configData.defaultChannelID = Integer.parseInt(value);
                     break;
                 case "lang": value = (String) cfg.get(key);
                     if (value.equalsIgnoreCase("en"))

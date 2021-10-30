@@ -9,7 +9,7 @@ public class UnwantedGuest {
     public static void checkGuests(TS3Api api) {
         if (!Config.getConfigData().unwantedGuests) return;
         int guest = api.getServerInfo().getDefaultServerGroup();
-        int defaultChannelID = api.whoAmI().getChannelId();
+        int defaultChannelID = Config.getConfigData().defaultChannelID;
 
         api.getClients().parallelStream().forEach(client -> {
             if (client.isServerQueryClient()) return;

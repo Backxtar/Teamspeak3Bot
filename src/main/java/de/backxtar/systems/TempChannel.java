@@ -6,7 +6,6 @@ import com.github.theholywaffle.teamspeak3.api.event.ClientMovedEvent;
 import com.github.theholywaffle.teamspeak3.api.wrapper.ChannelInfo;
 import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
 import de.backxtar.Config;
-import de.backxtar.DerGeraet;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +31,6 @@ public class TempChannel {
         properties.put(ChannelProperty.CHANNEL_CODEC_QUALITY, "10");
         api.createChannel(channelName, properties);
         api.moveClient(client.getId(), api.getChannelByNameExact(channelName, true).getId());
-        api.moveClient(api.whoAmI().getId(), api.getServerInfo().getDefaultChannelGroup());
+        api.moveClient(api.whoAmI().getId(), Config.getConfigData().defaultChannelID);
     }
 }
