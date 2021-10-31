@@ -23,30 +23,30 @@ public class Config {
     }
 
     public static class ConfigData {
-        public String ts3Host;
-        public String ts3Username;
-        public String ts3Password;
-        public String ts3Nickname = "Der Geraet (Bot)";
-        public String dbHost;
-        public String dbName;
-        public String dbUser;
-        public String dbPassword;
-        public String prefix = "!";
-        public String lang = "de";
-        public int defaultChannelID = 1;
-        public int welcomeMessage = 0;
-        public int tradingPostChannelID = 0;
-        public int[] afkChannelID;
-        public int infoChannelID = 0;
-        public int guildChannelID = 0;
-        public String missionDay = null;
-        public String missionMessage = null;
-        public String[] guildRanks;
-        private int[] tempServerGroups;
-        public HashMap<String, Integer> serverGroups;
+        public String ts3Host; //
+        public String ts3Username; //
+        public String ts3Password; //
+        public String ts3Nickname = "Der Geraet (Bot)"; //
+        public String dbHost; //
+        public String dbName; //
+        public String dbUser; //
+        public String dbPassword; //
+        public String prefix = "!"; //
+        public String lang = "de"; //
+        public int defaultChannelID = 1; //
+        public int welcomeMessage = 0; //
+        public int tradingPostChannelID = 0; //
+        public int[] afkChannelID; //
+        public int infoChannelID = 0; //
+        public int guildChannelID = 0; //
+        public String missionDay = null; //
+        public String missionMessage = null; //
+        public String[] guildRanks; //
+        private int[] tempServerGroups; //
+        public HashMap<String, Integer> serverGroups; //
         //public List<Integer> ignoreGroups;
-        public List<Integer> supportChannels;
-        public List<Integer> supportGroups;
+        public List<Integer> supportChannels; //
+        public List<Integer> supportGroups; //
         public List<Integer> tempChannelList;
         public boolean unwantedGuests = false;
         public int arcDpsChannelID = 0;

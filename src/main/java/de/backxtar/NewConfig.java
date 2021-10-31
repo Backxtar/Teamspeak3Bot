@@ -48,6 +48,7 @@ public class NewConfig {
     private int arcDpsChannelID;
     private int dailyChannelID;
     private List<String> guildRanks;
+    private List<Integer> tempServerGroups;
     private HashMap<String, Integer> serverGroups;
     private List<Integer> afkChannelID;
     private List<Integer> supportChannelID;
@@ -97,7 +98,23 @@ public class NewConfig {
                     infoChannelID = Integer.parseInt((String) cfg.get(key));
                     isActive.put(Systems.INFO_CHANNEL, isActive(infoChannelID));
                 }
+                case "guildChannelID" -> {
+                    guildChannelID = Integer.parseInt((String) cfg.get(key));
+                    isActive.put(Systems.GW2_GUILD_INFO, isActive(guildChannelID));
+                }
+                case "tradingPostChannelID" -> {
+                    tpChannelID = Integer.parseInt((String) cfg.get(key));
+                    isActive.put(Systems.GW2_TP_CHECK, isActive(tpChannelID));
+                }
+                case "guildRanks" -> guildRanks = (List<String>) createList((String) cfg.get(key), DataType.STRING);
+                case "serverGroups" -> tempServerGroups = (List<Integer>) createList((String) cfg.get(key), DataType.INT);
+                case "supportGroups" -> supportGroups = (List<Integer>) createList((String) cfg.get(key), DataType.INT);
+                case "supportChannels" -> {
+                    supportChannelID = (List<Integer>) createList((String) cfg.get(key), DataType.INT);
+                    isActive.put(Systems.CLIENT_SUPPORT, isActive(supportChannelID));
+                }
             }
+            mergeLists();
         }
     }
 
@@ -155,6 +172,20 @@ public class NewConfig {
             return Arrays.asList(values);
         }
         return null;
+    }
+
+    private void mergeLists() throws IOException{
+        if (tempServerGroups.size() != guildRanks.size())
+            throw new IOException("Number of guildRanks are not equal to number of serverGroups!");
+
+        if (tempServerGroups.size() == 1 && guildRanks.size() == 1 &&
+                tempServerGroups.get(0) == 0 && guildRanks.get(0).equalsIgnoreCase("0"))
+            isActive.put(Systems.GW2_SYNC, true);
+        else isActive.put(Systems.GW2_SYNC, false);
+
+        serverGroups = new HashMap<>();
+        for (int i = 0; i < tempServerGroups.size(); i++)
+            serverGroups.put(guildRanks.get(i), tempServerGroups.get(i));
     }
 
     public Lang getLang() {
