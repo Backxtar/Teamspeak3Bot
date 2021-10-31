@@ -1,12 +1,12 @@
 package de.backxtar;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 public class ConfigJSON {
     private static File json, readMe;
@@ -52,6 +52,7 @@ public class ConfigJSON {
         }};
 
         /* System Values */
+        public List<String> gw_Ranks                        = Arrays.asList("Leader", "Officer", "Member");
         public HashMap<String, Integer> gwRank_tsRank_ID    = new HashMap<>() {{
             put("YOUR_GW2_RANK_1", 1);
             put("YOUR_GW2_RANK_2", 2);
@@ -69,16 +70,18 @@ public class ConfigJSON {
         public List<Integer> temp_CH_ID                     = Arrays.asList(13, 14);
     }
 
-    public static Config loadJSON_README() throws IOException {
-        Gson gson = new Gson();
+    public static Config loadFromJSON() throws IOException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         json = new File("bot_config.json");
         readMe = new File("README.txt");
         String read = "#README - Teamspeak3-Bot by Backxtar\n" +
                 "#Note: This bot is still under development!\n\n" +
                 "#Step 1: Make sure Java 17 is installed!\n" +
                 "#Step 2: Edit the " + json.getName() + ".\n" +
-                "#Step 3: Run the bot with terminal ()-> java -jar Teamspeak3Bot.jar\n\n" +
-                "#DANGER: YOU NEED TO CHANGE THE VALUES, NOT THE KEYS! EXCEPTIONS: systems & gwRank_tsRank_ID!";
+                "#Step 3: Accept the TERMS OF USE by changing the value from FALSE to TRUE.\n" +
+                "#Step 4: Run the bot with terminal ()-> java -jar Teamspeak3Bot.jar\n" +
+                "#DANGER: YOU NEED TO CHANGE THE VALUES, NOT THE KEYS! EXCEPTIONS: systems & gwRank_tsRank_ID!\n\n" +
+                "TERMS_OF_USE = false";
 
         if (!json.exists() && !readMe.exists()) {
             json.createNewFile();
@@ -101,5 +104,28 @@ public class ConfigJSON {
         }
         JsonReader reader = new JsonReader(new FileReader(json));
         return gson.fromJson(reader, Config.class);
+    }
+
+    public static boolean checkREADME() throws IOException {
+        Properties properties = new Properties();
+        InputStreamReader reader = new InputStreamReader(new FileInputStream(readMe.getName()), StandardCharsets.UTF_8);
+        properties.load(reader);
+        Enumeration<Object> en = properties.keys();
+
+        while (en.hasMoreElements()) {
+            String key = (String) en.nextElement();
+            if (key.equalsIgnoreCase("TERMS_OF_USE")) {
+                return ((String) properties.get(key)).equalsIgnoreCase("true");
+            }
+        }
+        return false;
+    }
+
+    public static File getJson() {
+        return json;
+    }
+
+    public static File getReadMe() {
+        return readMe;
     }
 }

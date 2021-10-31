@@ -37,7 +37,7 @@ public class DerGeraet {
         ts3Bot = this;
         this.scheduler = Executors.newScheduledThreadPool(5);
         //this.config = new NewConfig();
-        this.cfg = new ConfigJSON.Config();
+        this.cfg = ConfigJSON.loadFromJSON();
         final TS3Config config = new TS3Config();
         Config.loadConfig();
         logger.info(Config.getFile().getName() + " loaded.");
