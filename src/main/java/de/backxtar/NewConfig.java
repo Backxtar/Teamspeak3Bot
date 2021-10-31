@@ -1,9 +1,5 @@
 package de.backxtar;
 
-import de.backxtar.Config;
-import de.backxtar.DataType;
-import de.backxtar.Lang;
-import de.backxtar.Systems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,13 +26,13 @@ public class NewConfig {
     private String dbPassword;
 
     private String prefix = "!";
-    private Lang lang;
+    private Enums.Lang lang;
     private int defaultChannelID = 1;
 
     private String guildID;
     private String guildLeaderApiKey;
 
-    private HashMap<Systems, Boolean> isActive;
+    private HashMap<Enums.Systems, Boolean> isActive;
 
     private boolean welcomeMessage;
     private boolean unwantedGuests;
@@ -88,30 +84,30 @@ public class NewConfig {
                 case "gmDay" -> gmDay = calcDay((String) cfg.get(key));
                 case "gmMessage" -> {
                     gmMessage = (String) cfg.get(key);
-                    isActive.put(Systems.SERVER_MESSAGE, isActive(gmMessage));
+                    isActive.put(Enums.Systems.SERVER_MESSAGE, isActive(gmMessage));
                 }
                 case "afkChannelID" -> {
-                    afkChannelID = (List<Integer>) createList((String) cfg.get(key), DataType.INT);
-                    isActive.put(Systems.AFK_MOVER, isActive(afkChannelID));
+                    afkChannelID = (List<Integer>) createList((String) cfg.get(key), Enums.DataType.INT);
+                    isActive.put(Enums.Systems.AFK_MOVER, isActive(afkChannelID));
                 }
                 case "infoChannelID" -> {
                     infoChannelID = Integer.parseInt((String) cfg.get(key));
-                    isActive.put(Systems.INFO_CHANNEL, isActive(infoChannelID));
+                    isActive.put(Enums.Systems.INFO_CHANNEL, isActive(infoChannelID));
                 }
                 case "guildChannelID" -> {
                     guildChannelID = Integer.parseInt((String) cfg.get(key));
-                    isActive.put(Systems.GW2_GUILD_INFO, isActive(guildChannelID));
+                    isActive.put(Enums.Systems.GW2_GUILD_INFO, isActive(guildChannelID));
                 }
                 case "tradingPostChannelID" -> {
                     tpChannelID = Integer.parseInt((String) cfg.get(key));
-                    isActive.put(Systems.GW2_TP_CHECK, isActive(tpChannelID));
+                    isActive.put(Enums.Systems.GW2_TP_CHECK, isActive(tpChannelID));
                 }
-                case "guildRanks" -> guildRanks = (List<String>) createList((String) cfg.get(key), DataType.STRING);
-                case "serverGroups" -> tempServerGroups = (List<Integer>) createList((String) cfg.get(key), DataType.INT);
-                case "supportGroups" -> supportGroups = (List<Integer>) createList((String) cfg.get(key), DataType.INT);
+                case "guildRanks" -> guildRanks = (List<String>) createList((String) cfg.get(key), Enums.DataType.STRING);
+                case "serverGroups" -> tempServerGroups = (List<Integer>) createList((String) cfg.get(key), Enums.DataType.INT);
+                case "supportGroups" -> supportGroups = (List<Integer>) createList((String) cfg.get(key), Enums.DataType.INT);
                 case "supportChannels" -> {
-                    supportChannelID = (List<Integer>) createList((String) cfg.get(key), DataType.INT);
-                    isActive.put(Systems.CLIENT_SUPPORT, isActive(supportChannelID));
+                    supportChannelID = (List<Integer>) createList((String) cfg.get(key), Enums.DataType.INT);
+                    isActive.put(Enums.Systems.CLIENT_SUPPORT, isActive(supportChannelID));
                 }
             }
             mergeLists();
@@ -132,10 +128,10 @@ public class NewConfig {
         return true;
     }
 
-    private Lang setLang(String str) {
+    private Enums.Lang setLang(String str) {
         return switch (str.toLowerCase()) {
-            case "eng" -> Lang.ENG;
-            default -> Lang.GER;
+            case "eng" -> Enums.Lang.ENG;
+            default -> Enums.Lang.GER;
         };
     }
 
@@ -156,10 +152,10 @@ public class NewConfig {
         return obj != null && !obj.toString().equalsIgnoreCase("0") && !obj.toString().isEmpty();
     }
 
-    private Object createList(String value, DataType type) {
+    private Object createList(String value, Enums.DataType type) {
         String[] values;
 
-        if (type == DataType.INT) {
+        if (type == Enums.DataType.INT) {
             List<Integer> list = new ArrayList<>();
             values = value.split(",");
 
@@ -167,7 +163,7 @@ public class NewConfig {
                 list.add(Integer.parseInt(str));
             return list;
         }
-        if (type == DataType.STRING) {
+        if (type == Enums.DataType.STRING) {
             values = value.split(",");
             return Arrays.asList(values);
         }
@@ -180,15 +176,15 @@ public class NewConfig {
 
         if (tempServerGroups.size() == 1 && guildRanks.size() == 1 &&
                 tempServerGroups.get(0) == 0 && guildRanks.get(0).equalsIgnoreCase("0"))
-            isActive.put(Systems.GW2_SYNC, true);
-        else isActive.put(Systems.GW2_SYNC, false);
+            isActive.put(Enums.Systems.GW2_SYNC, true);
+        else isActive.put(Enums.Systems.GW2_SYNC, false);
 
         serverGroups = new HashMap<>();
         for (int i = 0; i < tempServerGroups.size(); i++)
             serverGroups.put(guildRanks.get(i), tempServerGroups.get(i));
     }
 
-    public Lang getLang() {
+    public Enums.Lang getLang() {
         return lang;
     }
 }

@@ -2,6 +2,8 @@ package de.backxtar.systems;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import de.backxtar.Config;
+import de.backxtar.DerGeraet;
+
 import java.util.HashMap;
 
 public class AfkMover {

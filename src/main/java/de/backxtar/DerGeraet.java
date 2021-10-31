@@ -29,6 +29,7 @@ public class DerGeraet {
     private static DerGeraet ts3Bot;
     private final CommandManager commandManager;
     //private final NewConfig config;
+    private ConfigJSON.Config cfg;
     public TS3Query query;
     public TS3Api api;
 
@@ -36,6 +37,7 @@ public class DerGeraet {
         ts3Bot = this;
         this.scheduler = Executors.newScheduledThreadPool(5);
         //this.config = new NewConfig();
+        this.cfg = new ConfigJSON.Config();
         final TS3Config config = new TS3Config();
         Config.loadConfig();
         logger.info(Config.getFile().getName() + " loaded.");
@@ -124,6 +126,10 @@ public class DerGeraet {
 
     public CommandManager getCmdManager() {
         return commandManager;
+    }
+
+    public ConfigJSON.Config getCfg() {
+        return cfg;
     }
 
     /*public NewConfig getConfig() {
